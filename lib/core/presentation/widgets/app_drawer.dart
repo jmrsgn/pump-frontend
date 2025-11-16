@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/enums/app_menu_item.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
@@ -24,15 +25,14 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.background,
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
-          DrawerHeader(
+          Container(
+            // TODO: get the 30% of the height of the drawer
+            margin: EdgeInsets.only(top: AppDimens.appBarHeight),
+            color: Colors.red,
             padding: EdgeInsets.symmetric(horizontal: AppDimens.drawerPadding),
-            decoration: const BoxDecoration(color: AppColors.background),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   flex: 1,
@@ -42,7 +42,9 @@ class AppDrawer extends StatelessWidget {
                           radius: AppDimens.radiusXXXL,
                           child: Text(
                             currentUser.firstName[0],
-                            style: AppTextStyles.heading1.copyWith(fontSize: 48),
+                            style: AppTextStyles.heading1.copyWith(
+                              fontSize: 48,
+                            ),
                           ),
                         )
                       : CircleAvatar(
@@ -52,39 +54,77 @@ class AppDrawer extends StatelessWidget {
                           radius: AppDimens.radiusXXXL,
                         ),
                 ),
-
                 UiUtils.addHorizontalSpaceL(),
-
                 Expanded(
                   flex: 2,
-                  child: Container(
-                    color: AppColors.background,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${currentUser.firstName} ${currentUser.lastName}",
-                          style: AppTextStyles.heading2,
-                        ),
-                        UiUtils.addVerticalSpaceXS(),
-                        Text(currentUser.email, style: AppTextStyles.bodySmall),
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${currentUser.firstName} ${currentUser.lastName}",
+                        style: AppTextStyles.heading2,
+                      ),
+                      UiUtils.addVerticalSpaceXS(),
+                      Text(currentUser.email, style: AppTextStyles.bodySmall),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
 
-          // Menu Items
-          for (final item in AppMenuItem.values)
-            _buildDrawerItem(context: context, item: item),
+          UiUtils.addVerticalSpaceXL(),
+          const Divider(color: AppColors.divider),
 
-          const Divider(color: Colors.white24), // Border before sign out tile
+          // Expand to have the Sign out tab at the bottom
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                ...AppMenuItem.values.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  AppMenuItem item = entry.value;
+
+                  // Build the drawer item
+                  List<Widget> widgets = [
+                    _buildDrawerItem(context: context, item: item),
+                  ];
+
+                  if (index == 0 || index == 3) {
+                    widgets.add(const Divider(color: AppColors.divider));
+                    widgets.add(
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            left: AppDimens.dimen8,
+                            bottom: AppDimens.dimen8,
+                          ),
+                          child: Text(
+                            index == 0
+                                ? AppStrings.user.toUpperCase()
+                                : AppStrings.developer.toUpperCase(),
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.textDisabled,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Column(children: widgets);
+                }),
+              ],
+            ),
+          ),
 
           ListTile(
-            leading: const Icon(Icons.logout, color: AppColors.error),
+            leading: const Icon(
+              FontAwesomeIcons.rightFromBracket,
+              color: AppColors.error,
+            ),
             title: const Text(
               AppStrings.signOut,
               style: TextStyle(color: AppColors.error),
@@ -114,8 +154,7 @@ class AppDrawer extends StatelessWidget {
       selected: isSelected,
       selectedTileColor: AppColors.drawerSelected,
       onTap: () {
-        Navigator.pop(context); // Close the drawer first
-
+        Navigator.pop(context);
         if (selectedRoute != item.route) {
           Navigator.pushNamed(context, item.route, arguments: currentUser);
         }

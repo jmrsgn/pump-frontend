@@ -1,9 +1,11 @@
 class AppDimens {
   AppDimens._();
 
+  static const double dimen1 = 1.0;
+  static const double dimen2 = 2.0;
   static const double dimen4 = 4.0;
   static const double dimen8 = 8.0;
-  static const double dimen10 = 1.0;
+  static const double dimen10 = 10.0;
   static const double dimen12 = 12.0;
   static const double dimen14 = 14.0;
   static const double dimen16 = 16.0;

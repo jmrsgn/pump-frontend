@@ -28,6 +28,8 @@ class AppColors {
   static const Color error = Color(0xFFE53935); // Red for errors
   static const Color info = Color(0xFF29B6F6); // Blue for info banners
 
+  static const Color accentBlueLight = Color(0xFF03A9F4);
+
   // UI Components
   static const Color appBar = surface;
   static const Color bottomNav = Color(0xFF121212);

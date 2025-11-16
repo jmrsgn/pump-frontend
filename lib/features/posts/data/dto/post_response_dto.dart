@@ -11,6 +11,7 @@ class PostResponse {
   final DateTime updatedAt;
   final int likesCount;
   final int commentsCount;
+  final int sharesCount;
   final List<CommentResponse?>? comments;
 
   const PostResponse({
@@ -24,6 +25,7 @@ class PostResponse {
     required this.updatedAt,
     required this.likesCount,
     required this.commentsCount,
+    required this.sharesCount,
     required this.comments,
   });
 
@@ -39,6 +41,7 @@ class PostResponse {
       updatedAt: DateTime.tryParse(json['updatedAt'] ?? '') ?? DateTime.now(),
       likesCount: json['likesCount'] ?? 0,
       commentsCount: json['commentsCount'] ?? 0,
+      sharesCount: json['sharesCount'] ?? 0,
       comments:
           (json['comments'] as List<dynamic>?)
               ?.map((c) => CommentResponse.fromJson(c))
@@ -59,6 +62,7 @@ class PostResponse {
       'updatedAt': updatedAt.toIso8601String(),
       'likesCount': likesCount,
       'commentsCount': commentsCount,
+      'sharesCount': sharesCount,
       'comments': comments?.map((c) => c?.toJson()).toList(),
     };
   }
@@ -76,6 +80,7 @@ class PostResponse {
       updatedAt: updatedAt,
       likesCount: likesCount,
       commentsCount: commentsCount,
+      sharesCount: sharesCount,
       comments: comments?.map((c) => c?.toComment()).toList(),
     );
   }
@@ -86,12 +91,18 @@ class CommentResponse {
   final String? userProfileImageUrl;
   final String comment;
   final int likesCount;
+  final int repliesCount;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   const CommentResponse({
     required this.userName,
     this.userProfileImageUrl,
     required this.comment,
     required this.likesCount,
+    required this.repliesCount,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory CommentResponse.fromJson(Map<String, dynamic> json) {
@@ -100,6 +111,9 @@ class CommentResponse {
       userProfileImageUrl: json['userProfileImageUrl'],
       comment: json['comment'] ?? '',
       likesCount: json['likesCount'] ?? 0,
+      repliesCount: json['repliesCount'] ?? 0,
+      createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(json['updatedAt'] ?? '') ?? DateTime.now(),
     );
   }
 
@@ -109,6 +123,9 @@ class CommentResponse {
       'userProfileImageUrl': userProfileImageUrl,
       'comment': comment,
       'likesCount': likesCount,
+      'repliesCount': repliesCount,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
     };
   }
 
@@ -118,6 +135,9 @@ class CommentResponse {
       userProfileImageUrl: userProfileImageUrl ?? "",
       comment: comment,
       likesCount: likesCount,
+      repliesCount: repliesCount,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

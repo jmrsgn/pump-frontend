@@ -24,6 +24,7 @@ class AppStrings {
   static const like = "Like";
   static const reply = "Reply";
   static const typeAMessage = "Type a message";
+  static const user = "User";
 
   // Login Page
   static const login = 'Login';
@@ -81,8 +82,8 @@ class AppStrings {
   static const feedback = "Feedback";
   static const letMeKnowWhatToImprove = "Let me know what to improve :>";
 
-  // Favorites Page
-  static const favorites = "Favorites";
+  // Liked Posts Page
+  static const likedPosts = "Liked Posts";
 
   // Contact Page
   static const contact = "Contact";
@@ -101,6 +102,9 @@ class AppStrings {
   static const devEmail = "marasiganjohnmartin@gmail.com";
   static const devMobileNo = "+639 56 172 3007";
   static const devGithubUsername = "jmrsgn";
+
+  // Coaching
+  static const coaching = "Coaching";
 
   // Placeholder
   static const placeholder = "Placeholder";

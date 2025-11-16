@@ -4,6 +4,8 @@ import 'app_colors.dart';
 
 // TODO: fix comments provided by chatGpt
 class AppTextStyles {
+  AppTextStyles._();
+
   // 🧭 AppBar Title
   static const appBarTitle = TextStyle(
     fontSize: 20,

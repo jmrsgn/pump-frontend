@@ -1,9 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
+
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
@@ -124,45 +124,79 @@ class _PostWidgetState extends ConsumerState<PostWidget>
 
               UiUtils.addVerticalSpaceS(),
 
+              // Post likes, comments and shares count
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.solidThumbsUp,
+                        color: AppColors.info,
+                        size: AppDimens.dimen12,
+                      ),
+                      UiUtils.addHorizontalSpaceS(),
+                      Text(
+                        widget.post.likesCount.toString(),
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textDisabled,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${widget.post.commentsCount} ${AppStrings.comments}',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textDisabled,
+                        ),
+                      ),
+                      UiUtils.addHorizontalSpaceS(),
+                      Text(
+                        '${widget.post.sharesCount} ${AppStrings.shares}',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textDisabled,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              UiUtils.addVerticalSpaceL(),
+
               // Action buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(
                     children: [
-                      if (false)
-                        Icon(
-                          Icons.favorite_outlined,
-                          color: AppColors.textOnPrimary,
-                        )
-                      else
-                        Icon(
-                          Icons.favorite_border,
-                          color: AppColors.textDisabled,
-                        ),
-                      UiUtils.addHorizontalSpaceXS(),
+                      Icon(
+                        FontAwesomeIcons.thumbsUp,
+                        color: AppColors.textDisabled,
+                        size: AppDimens.dimen16,
+                      ),
+                      UiUtils.addHorizontalSpaceS(),
                       Text(
                         AppStrings.like,
-                        style: false
-                            ? AppTextStyles.caption.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )
-                            : AppTextStyles.caption.copyWith(
-                                color: AppColors.textDisabled,
-                              ),
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textDisabled,
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
                       Icon(
-                        Icons.mode_comment_outlined,
+                        FontAwesomeIcons.comment,
                         color: AppColors.textDisabled,
+                        size: AppDimens.dimen16,
                       ),
-                      UiUtils.addHorizontalSpaceXS(),
+                      UiUtils.addHorizontalSpaceS(),
                       Text(
                         AppStrings.comment,
-                        style: AppTextStyles.caption.copyWith(
+                        style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.textDisabled,
                         ),
                       ),
@@ -170,11 +204,15 @@ class _PostWidgetState extends ConsumerState<PostWidget>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.share, color: AppColors.textDisabled),
-                      UiUtils.addHorizontalSpaceXS(),
+                      Icon(
+                        FontAwesomeIcons.share,
+                        color: AppColors.textDisabled,
+                        size: AppDimens.dimen16,
+                      ),
+                      UiUtils.addHorizontalSpaceS(),
                       Text(
                         AppStrings.share,
-                        style: AppTextStyles.caption.copyWith(
+                        style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.textDisabled,
                         ),
                       ),

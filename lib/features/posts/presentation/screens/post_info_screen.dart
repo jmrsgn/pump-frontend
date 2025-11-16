@@ -1,14 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/constants/app/app_dimens.dart';
 import 'package:pump/core/constants/app/app_strings.dart';
 import 'package:pump/core/presentation/theme/app_colors.dart';
 import 'package:pump/core/presentation/theme/app_text_styles.dart';
 import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
-import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/core/utils/time_utils.dart';
+import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
 import 'package:pump/features/posts/presentation/widgets/comment_widget.dart';
 
@@ -166,13 +165,14 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                         Row(
                           children: [
                             Icon(
-                              Icons.favorite_border,
+                              FontAwesomeIcons.thumbsUp,
                               color: AppColors.textDisabled,
+                              size: AppDimens.dimen16,
                             ),
-                            UiUtils.addHorizontalSpaceXS(),
+                            UiUtils.addHorizontalSpaceS(),
                             Text(
                               AppStrings.like,
-                              style: AppTextStyles.caption.copyWith(
+                              style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.textDisabled,
                               ),
                             ),
@@ -181,13 +181,14 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                         Row(
                           children: [
                             Icon(
-                              Icons.mode_comment_outlined,
+                              FontAwesomeIcons.comment,
                               color: AppColors.textDisabled,
+                              size: AppDimens.dimen16,
                             ),
-                            UiUtils.addHorizontalSpaceXS(),
+                            UiUtils.addHorizontalSpaceS(),
                             Text(
                               AppStrings.comment,
-                              style: AppTextStyles.caption.copyWith(
+                              style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.textDisabled,
                               ),
                             ),
@@ -195,11 +196,15 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                         ),
                         Row(
                           children: [
-                            Icon(Icons.share, color: AppColors.textDisabled),
-                            UiUtils.addHorizontalSpaceXS(),
+                            Icon(
+                              FontAwesomeIcons.share,
+                              color: AppColors.textDisabled,
+                              size: AppDimens.dimen16,
+                            ),
+                            UiUtils.addHorizontalSpaceS(),
                             Text(
                               AppStrings.share,
-                              style: AppTextStyles.caption.copyWith(
+                              style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.textDisabled,
                               ),
                             ),
@@ -213,15 +218,25 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${widget.post.likesCount} likes',
-                          style: AppTextStyles.body.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.solidThumbsUp,
+                              color: AppColors.info,
+                              size: AppDimens.dimen12,
+                            ),
+                            UiUtils.addHorizontalSpaceS(),
+                            Text(
+                              '${widget.post.likesCount}',
+                              style: AppTextStyles.bodySmall.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
-                          '${widget.post.commentsCount} shares',
-                          style: AppTextStyles.body.copyWith(
+                          '${widget.post.sharesCount} ${AppStrings.shares}',
+                          style: AppTextStyles.bodySmall.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -234,19 +249,26 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
+                      itemCount: widget.post.commentsCount,
                       itemBuilder: (context, index) {
+                        Comment comment = widget.post.comments![index]!;
+
                         return Column(
                           children: [
                             CommentWidget(
                               comment: Comment(
-                                userName: "John Martin",
-                                userProfileImageUrl: null,
-                                comment: AppStrings.placeholderParagraph,
-                                likesCount: 0,
+                                userName: comment.userName,
+                                userProfileImageUrl:
+                                    comment.userProfileImageUrl,
+                                comment: comment.comment,
+                                likesCount: comment.likesCount,
+                                repliesCount: comment.repliesCount,
+                                createdAt: comment.createdAt,
+                                updatedAt: comment.updatedAt,
                               ),
                             ),
-                            if (index != 2) UiUtils.addVerticalSpaceL(),
+                            if (index < widget.post.comments!.length)
+                              UiUtils.addVerticalSpaceL(),
                           ],
                         );
                       },

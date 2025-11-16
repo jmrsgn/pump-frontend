@@ -8,7 +8,7 @@ import 'package:pump/features/chat/presentation/screens/messages.dart';
 import 'package:pump/features/info/presentation/screens/contact.dart';
 import 'package:pump/features/info/presentation/screens/feedback.dart';
 import 'package:pump/features/posts/presentation/screens/create_post_screen.dart';
-import 'package:pump/features/posts/presentation/screens/favorites_screen.dart';
+import 'package:pump/features/posts/presentation/screens/liked_posts_screen.dart';
 import 'package:pump/features/posts/presentation/screens/post_info_screen.dart';
 import '../features/info/presentation/screens/about.dart';
 import '../features/posts/domain/entities/post.dart';
@@ -23,9 +23,12 @@ class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
 
+  // Coaching
+  static const String coaching = '/coaching';
+
   // Posts
   static const String mainFeed = '/main_feed';
-  static const String favorites = '/favorites';
+  static const String likedPosts = '/liked_posts';
   static const String createPost = '/create_post';
   static const String postInfo = '/post_info';
 
@@ -76,8 +79,8 @@ class AppRoutes {
           return MaterialPageRoute(builder: (_) => RegisterScreen());
         case mainFeed:
           return MaterialPageRoute(builder: (_) => MainFeedScreen());
-        case favorites:
-          return MaterialPageRoute(builder: (_) => const FavoritesScreen());
+        case likedPosts:
+          return MaterialPageRoute(builder: (_) => const LikedPostsScreen());
 
         case createPost:
           final user = extractUserArg(settings);

@@ -82,34 +82,31 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Result<List<Post>, AppError>> getAllPosts() async {
     try {
-      final token = await _secureStorage.getToken();
-      if (token == null || token.isEmpty) {
+      final Result<AuthenticatedUser, AppError> userResult =
+          await _userRepositoryImpl.getAuthenticatedCurrentUser();
+      if (userResult.isSuccess) {
+        // Get all posts request
+        final result = await _postService.getAllPosts(userResult.data!.token);
+
+        if (result.isSuccess && result.data != null) {
+          final posts = result.data!.map((e) => e.toPost()).toList();
+          LoggerUtility.v(runtimeType.toString(), 'Posts fetched: $posts');
+          return Result.success(posts);
+        } else {
+          return Result.failure(userResult.error);
+        }
+      } else {
         LoggerUtility.e(
           runtimeType.toString(),
-          "Token is missing, will not proceed with API call",
+          "User id is missing, will not proceed with API call",
         );
         return Result.failure(
           AppError(
-            error: AppStrings.tokenIsMissing,
+            error: AppStrings.userIsNotAuthenticated,
             message: AppStrings.userIsNotAuthenticated,
           ),
         );
       }
-
-      final result = await _postService.getAllPosts(token);
-
-      if (result.isSuccess && result.data != null) {
-        final posts = result.data!.map((e) => e.toPost()).toList();
-        LoggerUtility.v(runtimeType.toString(), 'Posts fetched: $posts');
-        return Result.success(posts);
-      }
-
-      return Result.failure(
-        AppError(
-          error: result.error?.error ?? AppStrings.unknownError,
-          message: result.error?.message ?? AppStrings.failedToFetchUserData,
-        ),
-      );
     } catch (e, stackTrace) {
       LoggerUtility.e(
         runtimeType.toString(),

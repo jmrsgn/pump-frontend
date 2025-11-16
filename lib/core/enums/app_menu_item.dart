@@ -1,37 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/app/app_strings.dart';
 import '../routes.dart';
 
 enum AppMenuItem {
+  coaching(
+    title: AppStrings.coaching,
+    icon: Icon(FontAwesomeIcons.bolt),
+    route: AppRoutes.coaching,
+  ),
   profile(
     title: AppStrings.profile,
-    icon: Icon(Icons.person_outline),
+    icon: Icon(FontAwesomeIcons.user),
     route: AppRoutes.userProfile,
   ),
   messages(
     title: AppStrings.messages,
-    icon: Icon(Icons.message_outlined),
+    icon: Icon(FontAwesomeIcons.message),
     route: AppRoutes.messages,
   ),
   favorites(
-    title: AppStrings.favorites,
-    icon: Icon(Icons.favorite_outline),
-    route: AppRoutes.favorites,
+    title: AppStrings.likedPosts,
+    icon: Icon(FontAwesomeIcons.thumbsUp),
+    route: AppRoutes.likedPosts,
   ),
   contact(
     title: AppStrings.contact,
-    icon: Icon(Icons.phone),
+    icon: Icon(FontAwesomeIcons.envelope),
     route: AppRoutes.contact,
   ),
   feedback(
     title: AppStrings.feedback,
-    icon: Icon(Icons.feedback_outlined),
+    icon: Icon(FontAwesomeIcons.comments),
     route: AppRoutes.feedback,
   ),
   about(
     title: AppStrings.about,
-    icon: Icon(Icons.info_outline),
+    icon: Icon(FontAwesomeIcons.circleQuestion),
     route: AppRoutes.about,
   );
 

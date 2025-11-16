@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/features/posts/presentation/providers/create_post_state.dart';
 import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 
@@ -59,7 +60,10 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         title: Text(AppStrings.createPost, style: AppTextStyles.heading3),
         actions: [
           IconButton(
-            icon: const Icon(Icons.send),
+            icon: const Icon(
+              FontAwesomeIcons.paperPlane,
+              size: AppDimens.dimen20,
+            ),
             onPressed: () {
               final title = titleController.text.trim();
               final description = descriptionController.text.trim();

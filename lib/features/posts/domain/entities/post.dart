@@ -9,6 +9,7 @@ class Post {
   final DateTime updatedAt;
   final int likesCount;
   final int commentsCount;
+  final int sharesCount;
   final List<Comment?>? comments;
 
   const Post({
@@ -22,6 +23,7 @@ class Post {
     required this.updatedAt,
     required this.likesCount,
     required this.commentsCount,
+    required this.sharesCount,
     required this.comments,
   });
 
@@ -37,6 +39,7 @@ class Post {
       updatedAt: DateTime.parse(json['updatedAt']),
       likesCount: json['likesCount'],
       commentsCount: json['commentsCount'],
+      sharesCount: json['sharesCount'],
       comments: json['comments'] != null
           ? (json['comments'] as List)
                 .map((commentJson) => Comment.fromJson(commentJson))
@@ -47,7 +50,7 @@ class Post {
 
   @override
   String toString() {
-    return 'Post{id: $id, title: $title, description: $description, userId: $userId, userName: $userName, userProfileImageUrl: $userProfileImageUrl, createdAt: $createdAt, updatedAt: $updatedAt, likesCount: $likesCount, commentsCount: $commentsCount, comments: $comments}';
+    return 'Post{id: $id, title: $title, description: $description, userId: $userId, userName: $userName, userProfileImageUrl: $userProfileImageUrl, createdAt: $createdAt, updatedAt: $updatedAt, likesCount: $likesCount, commentsCount: $commentsCount, sharesCount: $sharesCount, comments: $comments}';
   }
 }
 
@@ -56,12 +59,18 @@ class Comment {
   final String? userProfileImageUrl;
   final String comment;
   final int likesCount;
+  final int repliesCount;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   const Comment({
     required this.userName,
     required this.userProfileImageUrl,
     required this.comment,
     required this.likesCount,
+    required this.repliesCount,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) {
@@ -70,6 +79,9 @@ class Comment {
       userProfileImageUrl: json['userProfileImageUrl'],
       comment: json['comment'],
       likesCount: json['likesCount'],
+      repliesCount: json['repliesCount'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
     );
   }
 }

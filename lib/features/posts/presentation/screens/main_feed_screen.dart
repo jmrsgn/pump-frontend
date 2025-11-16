@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pump/core/constants/app/app_dimens.dart';
 import 'package:pump/core/constants/app/app_strings.dart';
 import 'package:pump/core/presentation/providers/user_providers.dart';
 import 'package:pump/core/routes.dart';
@@ -46,7 +48,11 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
           ),
         ),
         actions: [
-          IconButton(icon: const Icon(Icons.message), onPressed: () {}),
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.message, size: AppDimens.dimen20),
+            onPressed: () =>
+                NavigationUtils.navigateTo(context, AppRoutes.messages),
+          ),
         ],
       ),
       backgroundColor: AppColors.background,
