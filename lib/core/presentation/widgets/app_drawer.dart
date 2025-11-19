@@ -28,9 +28,9 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            // TODO: get the 30% of the height of the drawer
-            margin: EdgeInsets.only(top: AppDimens.appBarHeight),
-            color: Colors.red,
+            margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.10,
+            ),
             padding: EdgeInsets.symmetric(horizontal: AppDimens.drawerPadding),
             child: Row(
               children: [

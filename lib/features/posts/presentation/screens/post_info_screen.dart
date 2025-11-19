@@ -9,6 +9,8 @@ import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
 import 'package:pump/core/utils/time_utils.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
+import 'package:pump/features/posts/presentation/providers/post_info_state.dart';
+import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 import 'package:pump/features/posts/presentation/widgets/comment_widget.dart';
 
 import '../../../../core/presentation/widgets/app_text_input.dart';
@@ -43,16 +45,6 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
     startMinuteRebuild();
   }
 
-  void _sendComment() {
-    final text = _textController.text.trim();
-    if (text.isEmpty) return;
-
-    // For demonstration, just clear the input and scroll
-    _textController.clear();
-
-    // TODO: scroll at the top
-  }
-
   @override
   void dispose() {
     _textController.dispose();
@@ -64,10 +56,25 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
   @override
   Widget build(BuildContext context) {
     final relativeTime = TimeUtils.timeAgo(widget.post.createdAt);
+    final postInfoViewModel = ref.watch(postInfoViewModelProvider.notifier);
+    final postInfoState = ref.watch(postInfoViewModelProvider);
+
+    ref.listen<PostInfoState>(postInfoViewModelProvider, (previous, next) {
+      if (previous?.isLoading == true && next.isLoading == false) {
+        if (next.errorMessage == null) {
+          if (!mounted) return;
+          UiUtils.showSnackBarSuccess(context, message: "Success ang comment");
+        } else {
+          if (!mounted) return;
+          UiUtils.showSnackBarError(context, message: next.errorMessage!);
+        }
+      }
+    });
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: CustomScaffold(
+        isLoading: postInfoState.isLoading,
         backgroundColor: AppColors.surface,
         appBar: AppBar(
           backgroundColor: AppColors.primary,
@@ -283,8 +290,10 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
               controller: _textController,
               focusNode: _focusNode,
               onSend: () {
-                // handle sending comment
-                _textController.clear();
+                postInfoViewModel.createComment(
+                  _textController.text.trim(),
+                  widget.post.id,
+                );
               },
               onAttach: () {
                 // handle attachment

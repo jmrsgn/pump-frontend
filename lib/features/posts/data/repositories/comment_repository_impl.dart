@@ -1,0 +1,80 @@
+import 'package:pump/core/data/dto/result.dart';
+import 'package:pump/core/data/repositories/user_repository_impl.dart';
+import 'package:pump/core/domain/entities/authenticated_user.dart';
+import 'package:pump/core/errors/app_error.dart';
+import 'package:pump/core/utils/secure_storage.dart';
+import 'package:pump/features/posts/data/dto/create_comment_request_dto.dart';
+import 'package:pump/features/posts/domain/entities/post.dart';
+
+import '../../../../core/constants/app/app_strings.dart';
+import '../../../../core/utilities/logger_utility.dart';
+import '../../domain/repositories/comment_repository.dart';
+import '../services/comment_service.dart';
+
+class CommentRepositoryImpl implements CommentRepository {
+  final CommentService _commentService;
+  final UserRepositoryImpl _userRepositoryImpl;
+
+  CommentRepositoryImpl(
+    this._commentService,
+    this._userRepositoryImpl, {
+    SecureStorage? secureStorage,
+  });
+
+  @override
+  Future<Result<Comment, AppError>> createComment(
+    String comment,
+    String postId,
+  ) async {
+    try {
+      final Result<AuthenticatedUser, AppError> userResult =
+          await _userRepositoryImpl.getAuthenticatedCurrentUser();
+      if (userResult.isSuccess) {
+        final request = CreateCommentRequest(
+          comment: comment,
+          userId: userResult.data!.user.id,
+        );
+
+        // Create Post Request
+        final result = await _commentService.createComment(
+          userResult.data!.token,
+          request,
+          postId,
+        );
+
+        if (result.isSuccess && result.data != null) {
+          LoggerUtility.v(
+            runtimeType.toString(),
+            'Created comment: ${result.data?.toComment()}',
+          );
+          return Result.success(result.data?.toComment());
+        }
+        return Result.failure(userResult.error);
+      } else {
+        LoggerUtility.e(
+          runtimeType.toString(),
+          "User id is missing, will not proceed with API call",
+        );
+        return Result.failure(
+          AppError(
+            error: AppStrings.userIsNotAuthenticated,
+            message: AppStrings.userIsNotAuthenticated,
+          ),
+        );
+      }
+    } catch (e, stackTrace) {
+      LoggerUtility.e(
+        runtimeType.toString(),
+        AppStrings.anUnexpectedErrorOccurred,
+        e.toString(),
+        stackTrace,
+      );
+      return Result.failure(
+        AppError(
+          error: AppStrings.anUnexpectedErrorOccurred,
+          message: AppStrings.anUnexpectedErrorOccurred,
+        ),
+      );
+    }
+  }
+}
