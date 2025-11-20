@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../constants/app/app_dimens.dart';
 import 'app_colors.dart';
 import 'app_text_styles.dart';
 
 class AppButtonStyles {
+  AppButtonStyles._();
+
   static final normal = ButtonStyle(
     backgroundColor: WidgetStateProperty.all(AppColors.primary),
     foregroundColor: WidgetStateProperty.all(AppColors.textOnPrimary),

@@ -66,20 +66,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppConstants.appName,
-                          style: AppTextStyles.heading1.copyWith(fontSize: 42),
-                        ),
-                        Text(
-                          AppStrings.allYouNeedInOneApp,
-                          style: AppTextStyles.body,
-                        ),
-                      ],
-                    ),
-                    UiUtils.addVerticalSpaceXXL(),
+                    Text(AppConstants.appName, style: AppTextStyles.heading1),
+                    UiUtils.addVerticalSpaceXL(),
                     Center(
                       child: Column(
                         children: [

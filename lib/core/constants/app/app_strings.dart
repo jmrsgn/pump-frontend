@@ -96,6 +96,7 @@ class AppStrings {
 
   // Licenses and Copyright
   static const String license = "";
+
   static String get copyright => '© ${DateTime.now().year} All Rights Reserved';
 
   // Dev Info
@@ -105,6 +106,51 @@ class AppStrings {
 
   // Coaching
   static const coaching = "Coaching";
+
+  // Clients
+  static const enroll = "Enroll";
+
+  // Client Info
+  static const clientInfo = "Client Info";
+  static const physicalStats = "Physical Stats";
+  static const height = "Height";
+  static const weight = "Weight";
+  static const bodyFat = "Body Fat";
+  static const muscleMass = "Muscle Mass";
+  static const trainingInfo = "Training Info";
+  static const lastWorkout = "Last Workout";
+  static const nutritionInfo = "Nutrition Info";
+  static const progressAndAnalytics = "Progress & Analytics";
+  static const graphsAndProgressPhotos = "Graphs & Progress Photos";
+  static const tapToViewChartsAndPhotos = "Tap to view charts and photos";
+  static const coachingNotes = "Coaching Notes";
+  static const extras = "Extras";
+
+  static String programTemplate(String program) => "Program: $program";
+
+  static String startDateTemplate(String startDate) => "Start Date: $startDate";
+
+  static String frequencyTemplate(String frequency) => "Frequency: $frequency";
+
+  static String dailyCaloriesTemplate(String dailyCalories) =>
+      "Daily Calories: $dailyCalories";
+
+  static String macrosTemplate(String protein, String carbs, String fat) =>
+      "Macros: P:$protein | C:$carbs | F:$fat";
+
+  static String mealPlanTemplate(String mealPlan) => "Meal Plan: $mealPlan";
+
+  static String nextCheckInTemplate(String nextCheckIn) =>
+      "Next Check-in: $nextCheckIn";
+
+  static String lastNoteTemplate(String lastNote) => "Last Note: $lastNote";
+
+  static String remindersTemplate(String reminders) => "Reminders: $reminders";
+
+  static String supplementsTemplate(String supplements) =>
+      "Supplements: $supplements";
+
+  static String injuriesTemplate(String injuries) => "Injuries: $injuries";
 
   // Placeholder
   static const placeholder = "Placeholder";

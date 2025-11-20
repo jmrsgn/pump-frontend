@@ -5,11 +5,14 @@ import 'package:pump/core/utilities/logger_utility.dart';
 import 'package:pump/features/auth/presentation/screens/login_screen.dart';
 import 'package:pump/features/auth/presentation/screens/register_screen.dart';
 import 'package:pump/features/chat/presentation/screens/messages.dart';
+import 'package:pump/features/coaching/presentation/screens/client_info.dart';
+import 'package:pump/features/coaching/presentation/screens/clients_screen.dart';
 import 'package:pump/features/info/presentation/screens/contact.dart';
 import 'package:pump/features/info/presentation/screens/feedback.dart';
 import 'package:pump/features/posts/presentation/screens/create_post_screen.dart';
 import 'package:pump/features/posts/presentation/screens/liked_posts_screen.dart';
 import 'package:pump/features/posts/presentation/screens/post_info_screen.dart';
+
 import '../features/info/presentation/screens/about.dart';
 import '../features/posts/domain/entities/post.dart';
 import '../features/posts/presentation/screens/main_feed_screen.dart';
@@ -25,6 +28,7 @@ class AppRoutes {
 
   // Coaching
   static const String coaching = '/coaching';
+  static const String clientInfo = '/client_info';
 
   // Posts
   static const String mainFeed = '/main_feed';
@@ -40,8 +44,6 @@ class AppRoutes {
   static const String contact = '/contact';
   static const String feedback = '/feedback';
   static const String about = '/about';
-
-  // ----------------- Helper Methods -----------------
 
   /// Safely extract a User argument from RouteSettings
   static User? extractUserArg(RouteSettings settings) {
@@ -69,7 +71,6 @@ class AppRoutes {
     return null;
   }
 
-  // ----------------- Route Generator -----------------
   static Route<dynamic> generateRoute(RouteSettings settings) {
     try {
       switch (settings.name) {
@@ -77,6 +78,10 @@ class AppRoutes {
           return MaterialPageRoute(builder: (_) => LoginScreen());
         case register:
           return MaterialPageRoute(builder: (_) => RegisterScreen());
+        case coaching:
+          return MaterialPageRoute(builder: (_) => const ClientsScreen());
+        case clientInfo:
+          return MaterialPageRoute(builder: (_) => const ClientInfoScreen());
         case mainFeed:
           return MaterialPageRoute(builder: (_) => MainFeedScreen());
         case likedPosts:

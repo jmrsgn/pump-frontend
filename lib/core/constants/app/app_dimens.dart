@@ -21,6 +21,7 @@ class AppDimens {
   static const double padding14 = 14.0;
 
   // TODO: fix comments provided by chatGpt
+  // TODO: add a screen dimen fieed for every screen
   // ───────────────────────────────
   // 📏 SPACING SCALE (Margins & Padding)
   // ───────────────────────────────
