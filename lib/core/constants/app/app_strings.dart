@@ -123,6 +123,7 @@ class AppStrings {
   static const progressAndAnalytics = "Progress & Analytics";
   static const graphsAndProgressPhotos = "Graphs & Progress Photos";
   static const tapToViewChartsAndPhotos = "Tap to view charts and photos";
+  static const tapToViewTrainingBlock = "Tap to view training block";
   static const coachingNotes = "Coaching Notes";
   static const extras = "Extras";
 

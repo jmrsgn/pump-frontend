@@ -76,7 +76,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget>
                     height: 1.0,
                   ),
                 ),
-                UiUtils.addVerticalSpaceXS(),
+                UiUtils.addVerticalSpaceS(),
                 Text(widget.comment.comment, style: AppTextStyles.bodySmall),
                 UiUtils.addVerticalSpaceXS(),
                 Row(

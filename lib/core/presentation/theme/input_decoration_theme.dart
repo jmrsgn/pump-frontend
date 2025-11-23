@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../constants/app/app_dimens.dart';
 import 'app_colors.dart';
+import 'app_text_styles.dart';
 
 class AppInputDecorations {
-  static const InputDecorationTheme defaultTheme = InputDecorationTheme(
-    hintStyle: TextStyle(color: AppColors.textHint),
+  static final InputDecorationTheme defaultTheme = InputDecorationTheme(
+    hintStyle: AppTextStyles.inputLabel,
     prefixIconColor: AppColors.textHint,
     contentPadding: EdgeInsets.symmetric(
       vertical: AppDimens.textFieldVerticalPadding,

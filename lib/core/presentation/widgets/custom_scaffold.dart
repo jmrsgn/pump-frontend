@@ -12,6 +12,7 @@ class CustomScaffold extends StatelessWidget {
   final Widget? drawer;
   final VoidCallback? onLeadingPressed;
   final Widget? leadingIcon;
+  final Widget? bottomNavigationBar;
 
   const CustomScaffold({
     super.key,
@@ -24,6 +25,7 @@ class CustomScaffold extends StatelessWidget {
     this.drawer,
     this.onLeadingPressed,
     this.leadingIcon,
+    this.bottomNavigationBar,
   });
 
   @override
@@ -32,6 +34,7 @@ class CustomScaffold extends StatelessWidget {
       drawer: drawer,
       backgroundColor: backgroundColor,
       appBar: appBar,
+      bottomNavigationBar: bottomNavigationBar,
       body: Stack(
         children: [
           SafeArea(child: body),

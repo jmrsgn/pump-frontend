@@ -63,7 +63,7 @@ class AppDrawer extends StatelessWidget {
                     children: [
                       Text(
                         "${currentUser.firstName} ${currentUser.lastName}",
-                        style: AppTextStyles.heading2,
+                        style: AppTextStyles.heading3,
                       ),
                       UiUtils.addVerticalSpaceXS(),
                       Text(currentUser.email, style: AppTextStyles.bodySmall),

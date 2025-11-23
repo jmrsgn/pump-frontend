@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:pump/core/constants/app/app_dimens.dart';
-import 'package:pump/core/constants/app/app_strings.dart';
-import 'package:pump/core/presentation/theme/app_colors.dart';
-import 'package:pump/core/presentation/theme/app_text_styles.dart';
-import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
-import 'package:pump/core/utils/ui_utils.dart';
+
+import '../../../../core/constants/app/app_dimens.dart';
+import '../../../../core/constants/app/app_strings.dart';
+import '../../../../core/presentation/theme/app_colors.dart';
+import '../../../../core/presentation/theme/app_text_styles.dart';
+import '../../../../core/presentation/widgets/custom_scaffold.dart';
+import '../../../../core/utils/ui_utils.dart';
 
 class ClientInfoScreen extends StatelessWidget {
-  const ClientInfoScreen({super.key});
+  final void Function(int)? onTileTap;
+
+  const ClientInfoScreen({super.key, this.onTileTap});
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text(AppStrings.clientInfo),
-      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(AppDimens.defaultScreenPadding),
+          padding: const EdgeInsets.all(AppDimens.screenPadding),
           child: Column(
             children: [
               // Basic Info Card
@@ -32,11 +31,14 @@ class ClientInfoScreen extends StatelessWidget {
                   ),
                   title: Text(
                     "John Martin Marasigan",
-                    style: AppTextStyles.heading3,
+                    style: AppTextStyles.heading3.copyWith(
+                      fontSize: AppDimens.textSize18,
+                    ),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      UiUtils.addVerticalSpaceXS(),
                       Text('Age: 25 | Male', style: AppTextStyles.bodySmall),
                       Text(
                         'Active client since Oct 2025',
@@ -71,20 +73,24 @@ class ClientInfoScreen extends StatelessWidget {
                 ),
               ),
 
-              // Training Info Card
+              // Training Info
               _buildCard(AppStrings.trainingInfo, [
                 _buildListTile(
-                  AppStrings.programTemplate("Sample program"),
+                  AppStrings.programTemplate("Program ni Kuya O"),
                   subtitle: AppStrings.startDateTemplate("Oct 2025"),
                 ),
-                _buildListTile(AppStrings.frequencyTemplate("4x/week")),
+                _buildListTile(
+                  AppStrings.frequencyTemplate("4x/week"),
+                  subtitle: AppStrings.tapToViewTrainingBlock,
+                  onTap: () => onTileTap?.call(2),
+                ),
                 _buildListTile(
                   AppStrings.lastWorkout,
                   subtitle: "Nov 20, 2025",
                 ),
               ]),
 
-              // Nutrition Info Card
+              // Nutrition
               _buildCard(AppStrings.nutritionInfo, [
                 _buildListTile(AppStrings.dailyCaloriesTemplate("2583 cal")),
                 _buildListTile(
@@ -93,17 +99,17 @@ class ClientInfoScreen extends StatelessWidget {
                 _buildListTile(AppStrings.mealPlanTemplate("Lean Bulk")),
               ]),
 
-              // Progress & Analytics Card
+              // Progress & Analytics
               _buildCard(AppStrings.progressAndAnalytics, [
                 _buildListTile(AppStrings.nextCheckInTemplate("Nov 23, 2025")),
                 _buildListTile(
                   AppStrings.graphsAndProgressPhotos,
                   subtitle: AppStrings.tapToViewChartsAndPhotos,
-                  onTap: () => {},
+                  onTap: () => onTileTap?.call(1),
                 ),
               ]),
 
-              // Coaching Notes & Communication
+              // Coaching Notes
               _buildCard(AppStrings.coachingNotes, [
                 _buildListTile(
                   AppStrings.lastNoteTemplate("Overall size, especially chest"),
@@ -126,51 +132,56 @@ class ClientInfoScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildStatRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: AppTextStyles.bodySmall),
-          Text(
-            value,
-            style: AppTextStyles.bodySmall.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildListTile(String title, {String? subtitle, VoidCallback? onTap}) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: AppDimens.dimen16,
-        vertical: 0,
-      ),
-      title: Text(title, style: AppTextStyles.body),
-      subtitle: subtitle == null
-          ? null
-          : Text(subtitle, style: AppTextStyles.bodySmall),
-      onTap: onTap,
-    );
-  }
-
-  Widget _buildCard(String title, List<Widget> tiles) {
-    return Card(
-      color: AppColors.surface,
-      child: ExpansionTile(
-        collapsedIconColor: AppColors.textOnPrimary,
-        iconColor: AppColors.textOnPrimary,
-        title: Text(
-          title,
-          style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+Widget _buildStatRow(String label, String value) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: AppTextStyles.bodySmall),
+        Text(
+          value,
+          style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
         ),
-        children: tiles,
+      ],
+    ),
+  );
+}
+
+Widget _buildListTile(String title, {String? subtitle, VoidCallback? onTap}) {
+  return ListTile(
+    contentPadding: EdgeInsets.symmetric(
+      horizontal: AppDimens.dimen16,
+      vertical: 0,
+    ),
+    title: Text(title, style: AppTextStyles.body),
+    subtitle: subtitle == null
+        ? null
+        : Text(
+            subtitle,
+            style: onTap == null
+                ? AppTextStyles.bodySmall
+                : AppTextStyles.bodySmall.copyWith(color: AppColors.info),
+          ),
+    onTap: onTap,
+    dense: true,
+    visualDensity: const VisualDensity(vertical: -4), // reduces height
+  );
+}
+
+Widget _buildCard(String title, List<Widget> tiles) {
+  return Card(
+    color: AppColors.surface,
+    child: ExpansionTile(
+      collapsedIconColor: AppColors.textOnPrimary,
+      iconColor: AppColors.textOnPrimary,
+      title: Text(
+        title,
+        style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
       ),
-    );
-  }
+      children: tiles,
+    ),
+  );
 }

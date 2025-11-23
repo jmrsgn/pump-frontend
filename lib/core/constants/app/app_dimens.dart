@@ -1,6 +1,7 @@
 class AppDimens {
   AppDimens._();
 
+  // General Sizes
   static const double dimen1 = 1.0;
   static const double dimen2 = 2.0;
   static const double dimen4 = 4.0;
@@ -11,12 +12,26 @@ class AppDimens {
   static const double dimen16 = 16.0;
   static const double dimen20 = 20.0;
   static const double dimen24 = 24.0;
+  static const double dimen28 = 28.0;
   static const double dimen36 = 36.0;
   static const double dimen48 = 48.0;
   static const double dimen64 = 64.0;
   static const double dimen86 = 86.0;
 
+  // Text Sizes
+  static const double textSize12 = 12.0;
+  static const double textSize13 = 13.0;
+  static const double textSize14 = 14.0;
+  static const double textSize16 = 16.0;
+  static const double textSize18 = 18.0;
+  static const double textSize20 = 20.0;
+  static const double textSize24 = 24.0;
+  static const double textSize28 = 28.0;
+  static const double textSize32 = 32.0;
+
   // Paddings
+  // Screen Padding
+  static const double screenPadding = 4.0;
   static const double padding10 = 10.0;
   static const double padding14 = 14.0;
 
