@@ -43,13 +43,10 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
 
     return CustomScaffold(
       isLoading: userState.isLoading || mainFeedState.isLoading,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+      appBarLeadingIcon: Builder(
+        builder: (context) => IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () => Scaffold.of(context).openDrawer(),
         ),
       ),
       backgroundColor: AppColors.background,

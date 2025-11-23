@@ -51,27 +51,20 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
 
     return CustomScaffold(
       isLoading: createPostState.isLoading,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColors.textOnPrimary),
-          onPressed: () => NavigationUtils.handleBackNavigation(context),
-        ),
-        title: Text(AppStrings.createPost, style: AppTextStyles.heading3),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              FontAwesomeIcons.paperPlane,
-              size: AppDimens.dimen20,
-            ),
-            onPressed: () {
-              final title = titleController.text.trim();
-              final description = descriptionController.text.trim();
-              createPostViewModel.createPost(title, description);
-            },
+      appBarTitle: AppStrings.createPost,
+      appBarActions: [
+        IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.paperPlane,
+            size: AppDimens.dimen20,
           ),
-        ],
-      ),
+          onPressed: () {
+            final title = titleController.text.trim();
+            final description = descriptionController.text.trim();
+            createPostViewModel.createPost(title, description);
+          },
+        ),
+      ],
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Container(

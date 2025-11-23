@@ -90,7 +90,7 @@ class ClientWidget extends StatelessWidget {
             // Arrow button to navigate
             IconButton(
               onPressed: () {
-                NavigationUtils.navigateTo(context, AppRoutes.clientInfo);
+                NavigationUtils.navigateTo(context, AppRoutes.clientOverview);
               },
               icon: Icon(FontAwesomeIcons.arrowRight, size: AppDimens.dimen16),
             ),

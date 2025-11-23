@@ -28,6 +28,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Listeners
     ref.listen<UiState>(loginViewModelProvider, (previous, next) {
@@ -52,6 +59,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: CustomScaffold(
+        showAppBar: false,
         isLoading: uiState.isLoading,
         body: Stack(
           fit: StackFit.expand,
@@ -66,7 +74,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(AppConstants.appName.toUpperCase(), style: AppTextStyles.heading1.copyWith(fontSize: AppDimens.textSize32)),
+                    Text(
+                      AppConstants.appName.toUpperCase(),
+                      style: AppTextStyles.heading1.copyWith(
+                        fontSize: AppDimens.textSize32,
+                      ),
+                    ),
                     UiUtils.addVerticalSpaceXL(),
                     Center(
                       child: Column(
@@ -140,12 +153,5 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

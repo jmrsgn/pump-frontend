@@ -3,52 +3,48 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // Core Brand Colors
-  static const Color primary = Color(0xFFFF7A00); // Main accent orange
-  static const Color primaryDark = Color(0xFFCC5E00); // Pressed/active state
-  static const Color primaryLight = Color(0xFFFFA94D); // Hover/focus/gradients
+  // Core Colors
+  static const Color primary = Color(0xFFD96A1B); // Power Orange
+  static const Color primaryDark = Color(0xFFB65516); // Pressed/Active
+  static const Color primaryLight = Color(0xFFE98A3A); // Hover/Highlights
 
-  // Backgrounds & Surfaces
-  static const Color background = Color(0xFF0D0D0D); // App background
-  static const Color surface = Color(0xFF151515); // Card/AppBar surfaces
-  static const Color surfaceLight = Color(
-    0xFF1C1C1C,
-  ); // Slightly lighter surface
+  // Backgrounds and Surfaces (Deep gym aesthetic)
+  static const Color background = Color(0xFF0A0A0A); // Slightly deeper black
+  static const Color surface = Color(0xFF141414); // Elevated cards
+  static const Color surfaceLight = Color(0xFF1B1B1B); // Slight elevation
 
-  // Text Colors
-  static const Color textPrimary = Color(0xFFEAEAEA); // Default readable text
-  static const Color textSecondary = Color(0xFFB3B3B3); // Captions, subtitles
-  static const Color textDisabled = Color(0xFF666666); // Disabled/placeholder
-  static const Color textHint = Color(0xFF777777); // Hint text inside inputs
-  static const Color textOnPrimary = Colors.white; // Text on orange
+  // Text Colors (optimized for low-light UI)
+  static const Color textPrimary = Color(0xFFE6E6E6); // High contrast
+  static const Color textSecondary = Color(0xFF9E9E9E); // Subtext
+  static const Color textDisabled = Color(0xFF5C5C5C); // Disabled
+  static const Color textHint = Color(0xFF707070); // Input hints
+  static const Color textOnPrimary = Colors.white;
 
-  //  Functional Colors
-  static const Color success = Color(0xFF00C853); // Green for success
-  static const Color warning = Color(0xFFFFA000); // Orange-yellow for warnings
-  static const Color error = Color(0xFFE53935); // Red for errors
-  static const Color info = Color(0xFF29B6F6); // Blue for info banners
+  // Functional Colors (slightly toned to match strong brand)
+  static const Color success = Color(0xFF19A65C); // Strong, not too neon
+  static const Color warning = Color(0xFFE08E1A); // Warmer warning
+  static const Color error = Color(0xFFD6453A); // Deeper, strong red
+  static const Color info = Color(0xFF3AA7D9); // Clean blue
 
-  static const Color accentBlueLight = Color(0xFF03A9F4);
-
-  // UI Components
-  static const Color appBar = surface;
-  static const Color bottomNav = Color(0xFF121212);
-  static const Color drawerBackground = Color(0xFF121212);
+  // Component Colors
+  static const Color appBar = background;
+  static const Color bottomNav = Color(0xFF101010);
+  static const Color drawerBackground = Color(0xFF101010);
   static const Color drawerSelected = primary;
   static const Color drawerUnselected = textSecondary;
 
   // Inputs & Borders
-  static const Color inputBackground = Color(0xFF2A2A2A);
+  static const Color inputBackground = Color(0xFF242424);
   static const Color inputBorder = Color(0xFF333333);
   static const Color inputFocusedBorder = primary;
-  static const Color divider = Color(0xFF333333);
+  static const Color divider = Color(0xFF2E2E2E);
 
   // Overlays / Shadows
-  static const Color overlay = Color(0x80000000); // 50% black overlay
-  static const Color shadow = Color(0x33000000); // 20% black shadow
+  static const Color overlay = Color(0x80000000); // 50% black
+  static const Color shadow = Color(0x33000000); // 20% black subtle shadow
 
-  // SnackBar
-  static const Color snackBarError = Color(0xFFFF7043); // coral/orange
-  static const Color snackBarSuccess = Color(0xFF00BFA6); // teal/cyan
-  static const Color snackBarInfo = Color(0xFF9C27B0); // purple
+  // SnackBar Colors (toned to brand)
+  static const Color snackBarError = Color(0xFFE0624B); // Warmer red-orange
+  static const Color snackBarSuccess = Color(0xFF00A98A); // Muted teal
+  static const Color snackBarInfo = Color(0xFF8F47C2); // Deep, modern purple
 }

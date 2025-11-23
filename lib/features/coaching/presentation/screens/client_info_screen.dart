@@ -4,7 +4,6 @@ import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
-import '../../../../core/presentation/widgets/custom_scaffold.dart';
 import '../../../../core/utils/ui_utils.dart';
 
 class ClientInfoScreen extends StatelessWidget {
@@ -14,120 +13,112 @@ class ClientInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      backgroundColor: AppColors.background,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppDimens.screenPadding),
-          child: Column(
-            children: [
-              // Basic Info Card
-              Card(
-                color: AppColors.surface,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: AppDimens.dimen36,
-                    backgroundImage: AssetImage("assets/images/jm.jpg"),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(AppDimens.screenPadding),
+        child: Column(
+          children: [
+            // Basic Info Card
+            Card(
+              color: AppColors.surfaceLight,
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: AppDimens.dimen36,
+                  backgroundImage: AssetImage("assets/images/jm.jpg"),
+                ),
+                title: Text(
+                  "John Martin Marasigan",
+                  style: AppTextStyles.heading3.copyWith(
+                    fontSize: AppDimens.textSize18,
                   ),
-                  title: Text(
-                    "John Martin Marasigan",
-                    style: AppTextStyles.heading3.copyWith(
-                      fontSize: AppDimens.textSize18,
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UiUtils.addVerticalSpaceXS(),
+                    Text('Age: 25 | Male', style: AppTextStyles.bodySmall),
+                    Text(
+                      'Active client since Oct 2025',
+                      style: AppTextStyles.bodySmall,
                     ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      UiUtils.addVerticalSpaceXS(),
-                      Text('Age: 25 | Male', style: AppTextStyles.bodySmall),
-                      Text(
-                        'Active client since Oct 2025',
-                        style: AppTextStyles.bodySmall,
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
+            ),
 
-              // Physical Stats Card
-              Card(
-                color: AppColors.surface,
-                child: Padding(
-                  padding: const EdgeInsets.all(AppDimens.dimen12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.physicalStats,
-                        style: AppTextStyles.bodyLarge.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+            // Physical Stats Card
+            Card(
+              color: AppColors.surfaceLight,
+              child: Padding(
+                padding: const EdgeInsets.all(AppDimens.dimen12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppStrings.physicalStats,
+                      style: AppTextStyles.heading3.copyWith(
+                        fontSize: AppDimens.textSize16,
                       ),
-                      UiUtils.addVerticalSpaceL(),
-                      _buildStatRow(AppStrings.height, '163 cm'),
-                      _buildStatRow(AppStrings.weight, '64.35 kg'),
-                      _buildStatRow(AppStrings.bodyFat, '20%'),
-                      _buildStatRow(AppStrings.muscleMass, '40 kg'),
-                    ],
-                  ),
+                    ),
+                    UiUtils.addVerticalSpaceL(),
+                    _buildStatRow(AppStrings.height, '163 cm'),
+                    _buildStatRow(AppStrings.weight, '64.35 kg'),
+                    _buildStatRow(AppStrings.bodyFat, '20%'),
+                    _buildStatRow(AppStrings.muscleMass, '40 kg'),
+                  ],
                 ),
               ),
+            ),
 
-              // Training Info
-              _buildCard(AppStrings.trainingInfo, [
-                _buildListTile(
-                  AppStrings.programTemplate("Program ni Kuya O"),
-                  subtitle: AppStrings.startDateTemplate("Oct 2025"),
-                ),
-                _buildListTile(
-                  AppStrings.frequencyTemplate("4x/week"),
-                  subtitle: AppStrings.tapToViewTrainingBlock,
-                  onTap: () => onTileTap?.call(2),
-                ),
-                _buildListTile(
-                  AppStrings.lastWorkout,
-                  subtitle: "Nov 20, 2025",
-                ),
-              ]),
+            // Training Info
+            _buildCard(AppStrings.trainingInfo, [
+              _buildListTile(
+                AppStrings.programTemplate("Program ni Kuya O"),
+                subtitle: AppStrings.startDateTemplate("Oct 2025"),
+              ),
+              _buildListTile(
+                AppStrings.frequencyTemplate("4x/week"),
+                subtitle: AppStrings.tapToViewTrainingBlock,
+                onTap: () => onTileTap?.call(2),
+              ),
+              _buildListTile(AppStrings.lastWorkout, subtitle: "Nov 20, 2025"),
+            ]),
 
-              // Nutrition
-              _buildCard(AppStrings.nutritionInfo, [
-                _buildListTile(AppStrings.dailyCaloriesTemplate("2583 cal")),
-                _buildListTile(
-                  AppStrings.macrosTemplate("194g", "291g", "72g"),
-                ),
-                _buildListTile(AppStrings.mealPlanTemplate("Lean Bulk")),
-              ]),
+            // Nutrition
+            _buildCard(AppStrings.nutritionInfo, [
+              _buildListTile(AppStrings.dailyCaloriesTemplate("2583 cal")),
+              _buildListTile(AppStrings.macrosTemplate("194g", "291g", "72g")),
+              _buildListTile(AppStrings.mealPlanTemplate("Lean Bulk")),
+            ]),
 
-              // Progress & Analytics
-              _buildCard(AppStrings.progressAndAnalytics, [
-                _buildListTile(AppStrings.nextCheckInTemplate("Nov 23, 2025")),
-                _buildListTile(
-                  AppStrings.graphsAndProgressPhotos,
-                  subtitle: AppStrings.tapToViewChartsAndPhotos,
-                  onTap: () => onTileTap?.call(1),
-                ),
-              ]),
+            // Progress & Analytics
+            _buildCard(AppStrings.progressAndAnalytics, [
+              _buildListTile(AppStrings.nextCheckInTemplate("Nov 23, 2025")),
+              _buildListTile(
+                AppStrings.graphsAndProgressPhotos,
+                subtitle: AppStrings.tapToViewChartsAndPhotos,
+                onTap: () => onTileTap?.call(1),
+              ),
+            ]),
 
-              // Coaching Notes
-              _buildCard(AppStrings.coachingNotes, [
-                _buildListTile(
-                  AppStrings.lastNoteTemplate("Overall size, especially chest"),
-                ),
-                _buildListTile(AppStrings.remindersTemplate("NA")),
-              ]),
+            // Coaching Notes
+            _buildCard(AppStrings.coachingNotes, [
+              _buildListTile(
+                AppStrings.lastNoteTemplate("Overall size, especially chest"),
+              ),
+              _buildListTile(AppStrings.remindersTemplate("NA")),
+            ]),
 
-              // Extras
-              _buildCard(AppStrings.extras, [
-                _buildListTile(
-                  AppStrings.supplementsTemplate(
-                    "Whey Protein, Creatine, Pre-workout",
-                  ),
+            // Extras
+            _buildCard(AppStrings.extras, [
+              _buildListTile(
+                AppStrings.supplementsTemplate(
+                  "Whey Protein, Creatine, Pre-workout",
                 ),
-                _buildListTile(AppStrings.injuriesTemplate("Neck")),
-              ]),
-            ],
-          ),
+              ),
+              _buildListTile(AppStrings.injuriesTemplate("Neck")),
+            ]),
+          ],
         ),
       ),
     );
@@ -173,13 +164,16 @@ Widget _buildListTile(String title, {String? subtitle, VoidCallback? onTap}) {
 
 Widget _buildCard(String title, List<Widget> tiles) {
   return Card(
-    color: AppColors.surface,
+    color: AppColors.surfaceLight,
     child: ExpansionTile(
-      collapsedIconColor: AppColors.textOnPrimary,
       iconColor: AppColors.textOnPrimary,
+      collapsedIconColor: AppColors.textHint,
       title: Text(
         title,
-        style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.heading3.copyWith(
+          fontSize: AppDimens.textSize16,
+          color: AppColors.textOnPrimary,
+        ),
       ),
       children: tiles,
     ),

@@ -28,7 +28,7 @@ class AppRoutes {
 
   // Coaching
   static const String coaching = '/coaching';
-  static const String clientInfo = '/client_info';
+  static const String clientOverview = '/client_overview';
 
   // Posts
   static const String mainFeed = '/main_feed';
@@ -80,8 +80,10 @@ class AppRoutes {
           return MaterialPageRoute(builder: (_) => RegisterScreen());
         case coaching:
           return MaterialPageRoute(builder: (_) => const ClientsScreen());
-        case clientInfo:
-          return MaterialPageRoute(builder: (_) => const ClientOverviewScreen());
+        case clientOverview:
+          return MaterialPageRoute(
+            builder: (_) => const ClientOverviewScreen(),
+          );
         case mainFeed:
           return MaterialPageRoute(builder: (_) => MainFeedScreen());
         case likedPosts:

@@ -6,7 +6,6 @@ import 'package:pump/features/coaching/presentation/screens/client_progress_scre
 import 'package:pump/features/coaching/presentation/screens/training_block_screen.dart';
 
 import '../../../../core/constants/app/app_strings.dart';
-import '../../../../core/presentation/theme/app_colors.dart';
 
 class ClientOverviewScreen extends StatefulWidget {
   const ClientOverviewScreen({super.key});
@@ -15,52 +14,64 @@ class ClientOverviewScreen extends StatefulWidget {
   State<ClientOverviewScreen> createState() => _ClientOverviewScreenState();
 }
 
+enum ClientOverviewTab { clientInfo, progress, trainingBlock }
+
+extension ClientOverviewTabExtension on ClientOverviewTab {
+  String get title {
+    switch (this) {
+      case ClientOverviewTab.clientInfo:
+        return AppStrings.clientInfo;
+      case ClientOverviewTab.progress:
+        return AppStrings.progressAndAnalytics;
+      case ClientOverviewTab.trainingBlock:
+        return AppStrings.trainingBlock;
+    }
+  }
+}
+
 class _ClientOverviewScreenState extends State<ClientOverviewScreen> {
-  int _selectedIndex = 0;
+  ClientOverviewTab _selectedTab = ClientOverviewTab.clientInfo;
 
   void _onTap(int index) {
-    setState(() => _selectedIndex = index);
+    setState(() {
+      _selectedTab = ClientOverviewTab.values[index];
+    });
   }
 
   Widget get _currentScreen {
-    switch (_selectedIndex) {
-      case 0:
+    switch (_selectedTab) {
+      case ClientOverviewTab.clientInfo:
         return ClientInfoScreen(onTileTap: _onTap);
-      case 1:
+      case ClientOverviewTab.progress:
         return const ClientProgressScreen();
-      case 2:
+      case ClientOverviewTab.trainingBlock:
         return const TrainingBlockScreen();
-      default:
-        return const SizedBox();
     }
   }
 
   late final List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.person),
-      label: "Client Info",
+      label: AppStrings.clientInfo,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.show_chart),
-      label: "Progress",
+      label: AppStrings.progressAndAnalytics,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.fitness_center),
-      label: "Training Block",
+      label: AppStrings.trainingBlock,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text(AppStrings.clientInfo),
-      ),
+      appBarTitle: _selectedTab.title,
       body: _currentScreen,
       bottomNavigationBar: CustomBottomNavigationBar(
         items: _items,
-        selectedIndex: _selectedIndex,
+        selectedIndex: _selectedTab.index,
         onItemTapped: (int index) => _onTap(index),
       ),
     );

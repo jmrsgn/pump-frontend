@@ -55,13 +55,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: CustomScaffold(
         isLoading: uiState.isLoading,
-        appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-            onPressed: () => NavigationUtils.handleBackNavigation(context),
-          ),
-        ),
         body: Column(
           children: [
             Expanded(

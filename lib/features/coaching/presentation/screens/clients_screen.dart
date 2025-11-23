@@ -185,7 +185,7 @@ class ClientsScreen extends StatelessWidget {
             // Navigate button
             IconButton(
               onPressed: () {
-                NavigationUtils.navigateTo(context, AppRoutes.clientInfo);
+                NavigationUtils.navigateTo(context, AppRoutes.clientOverview);
               },
               icon: Icon(FontAwesomeIcons.arrowRight, size: AppDimens.dimen16),
             ),

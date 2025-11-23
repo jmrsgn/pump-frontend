@@ -126,6 +126,7 @@ class AppStrings {
   static const tapToViewTrainingBlock = "Tap to view training block";
   static const coachingNotes = "Coaching Notes";
   static const extras = "Extras";
+  static const trainingBlock = "Training Block";
 
   static String programTemplate(String program) => "Program: $program";
 

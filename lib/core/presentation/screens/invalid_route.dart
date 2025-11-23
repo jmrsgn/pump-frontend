@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pump/core/utils/navigation_utils.dart';
 
 import '../../constants/app/app_dimens.dart';
 import '../../constants/app/app_strings.dart';
@@ -13,13 +12,6 @@ class InvalidRouteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        leading: IconButton(
-          onPressed: () => NavigationUtils.handleBackNavigation(context),
-          icon: Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-        ),
-      ),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Center(
