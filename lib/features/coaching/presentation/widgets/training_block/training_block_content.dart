@@ -32,14 +32,16 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
     repsControllers = {};
 
     for (var day in widget.week.days) {
-      weightControllers[day.splitName.label] = [];
-      repsControllers[day.splitName.label] = [];
+      final key = '${widget.week.weekNo}_${day.dayNumber}';
+
+      weightControllers[key] = [];
+      repsControllers[key] = [];
 
       for (var exercise in day.exercises) {
-        weightControllers[day.splitName.label]!.add(
+        weightControllers[key]!.add(
           List.generate(exercise.sets, (i) => TextEditingController()),
         );
-        repsControllers[day.splitName.label]!.add(
+        repsControllers[key]!.add(
           List.generate(exercise.sets, (i) => TextEditingController()),
         );
       }
@@ -117,13 +119,12 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
         tableCell(logExercise.exercise.repRange),
       ];
 
+      final key = '${widget.week.weekNo}_${day.dayNumber}';
+
       for (int i = 0; i < maxSets; i++) {
         cells.add(
           i < logExercise.exercise.sets
-              ? editableCell(
-                  weightControllers[day.splitName.label]![exIndex][i],
-                  hint: "kg",
-                )
+              ? editableCell(weightControllers[key]![exIndex][i], hint: "kg")
               : tableCell("-"),
         );
       }
@@ -131,10 +132,7 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
       for (int i = 0; i < maxSets; i++) {
         cells.add(
           i < logExercise.exercise.sets
-              ? editableCell(
-                  repsControllers[day.splitName.label]![exIndex][i],
-                  hint: "reps",
-                )
+              ? editableCell(repsControllers[key]![exIndex][i], hint: "reps")
               : tableCell("-"),
         );
       }
@@ -199,6 +197,8 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
           ),
           contentPadding: const EdgeInsets.all(4),
           border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
         ),
         keyboardType: TextInputType.number,
       ),

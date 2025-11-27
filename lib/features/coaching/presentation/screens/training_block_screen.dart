@@ -142,7 +142,22 @@ class TrainingBlockScreen extends StatelessWidget {
         TrainingWeek(
           date: DateTime.timestamp(),
           weekNo: i + 1,
-          days: trainingPlan.trainingDays,
+          days: trainingPlan.trainingDays.map((day) {
+            return TrainingDay(
+              dayNumber: day.dayNumber,
+              splitName: day.splitName,
+              exercises: day.exercises
+                  .map(
+                    (ex) => Exercise(
+                      name: ex.name,
+                      sets: ex.sets,
+                      repRange: ex.repRange,
+                    ),
+                  )
+                  .toList(),
+              logExercises: [],
+            );
+          }).toList(),
         ),
       );
     }
