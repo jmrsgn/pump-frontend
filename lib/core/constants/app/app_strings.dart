@@ -1,7 +1,7 @@
 class AppStrings {
   AppStrings._();
 
-  // Common
+  // Common Strings
   static const email = "Email";
   static const password = 'Password';
   static const allYouNeedInOneApp = "All you need, in one app";
@@ -94,23 +94,15 @@ class AppStrings {
   // Messages Page
   static const messages = "Messages";
 
-  // Licenses and Copyright
-  static const String license = "";
-
   static String get copyright => '© ${DateTime.now().year} All Rights Reserved';
 
-  // Dev Info
-  static const devEmail = "marasiganjohnmartin@gmail.com";
-  static const devMobileNo = "+639 56 172 3007";
-  static const devGithubUsername = "jmrsgn";
-
-  // Coaching
+  // Coaching Page
   static const coaching = "Coaching";
 
-  // Clients
+  // Clients Page
   static const enroll = "Enroll";
 
-  // Client Info
+  // Client Info Page
   static const clientInfo = "Client Info";
   static const physicalStats = "Physical Stats";
   static const height = "Height";
@@ -153,6 +145,28 @@ class AppStrings {
       "Supplements: $supplements";
 
   static String injuriesTemplate(String injuries) => "Injuries: $injuries";
+
+  // Training Block
+  static const pull = "Pull";
+  static const legs = "Legs";
+  static const push = "Push";
+  static const rest = "Rest";
+  static const fullBody = "Full Body";
+  static const upperBody = "Upper Body";
+  static const lowerBody = "Lower Body";
+  static const cardio = "Cardio";
+
+  static String weekNoTemplate(int weekNo) => "Week $weekNo";
+
+  static String dayNoSplitTemplate(int dayNo, String split) =>
+      "Day $dayNo $split";
+
+  // --------------------------
+
+  // Dev Info
+  static const devEmail = "marasiganjohnmartin@gmail.com";
+  static const devMobileNo = "+639 56 172 3007";
+  static const devGithubUsername = "jmrsgn";
 
   // Placeholder
   static const placeholder = "Placeholder";
