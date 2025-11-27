@@ -42,28 +42,36 @@ class CustomScaffold extends StatelessWidget {
     return Scaffold(
       drawer: drawer,
       backgroundColor: backgroundColor,
-      appBar:
-          appBar ??
-          AppBar(
-            // Default designs
-            scrolledUnderElevation: 0,
-            elevation: 0,
-            backgroundColor: AppColors.appBar,
-            shadowColor: Colors.transparent,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
-            title: Text(appBarTitle ?? "", style: AppTextStyles.appBarTitle),
-
-            // Actions
-            leading:
-                appBarLeadingIcon ??
-                IconButton(
-                  onPressed: () => appBarLeadingIcon == null
-                      ? NavigationUtils.handleBackNavigation(context)
-                      : onAppBarLeadingIconPressed,
-                  icon: Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-                ),
-            actions: appBarActions,
-          ),
+      appBar: showAppBar
+          ? appBar ??
+                AppBar(
+                  scrolledUnderElevation: 0,
+                  elevation: 0,
+                  backgroundColor: AppColors.appBar,
+                  shadowColor: Colors.transparent,
+                  systemOverlayStyle: SystemUiOverlayStyle.light,
+                  title: Text(
+                    appBarTitle ?? "",
+                    style: AppTextStyles.appBarTitle,
+                  ),
+                  leading:
+                      appBarLeadingIcon ??
+                      IconButton(
+                        onPressed: () {
+                          if (appBarLeadingIcon == null) {
+                            NavigationUtils.handleBackNavigation(context);
+                          } else {
+                            onAppBarLeadingIconPressed?.call();
+                          }
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: AppColors.textOnPrimary,
+                        ),
+                      ),
+                  actions: appBarActions,
+                )
+          : null,
       bottomNavigationBar: bottomNavigationBar,
       body: Stack(
         children: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pump/core/presentation/widgets/custom_bottom_nav_bar.dart';
 import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
 import 'package:pump/features/coaching/presentation/screens/client_info_screen.dart';
-import 'package:pump/features/coaching/presentation/screens/client_progress_screen.dart';
+import 'package:pump/features/coaching/presentation/screens/progress_and_analytics_screen.dart';
 import 'package:pump/features/coaching/presentation/screens/training_block_screen.dart';
 
 import '../../../../core/constants/app/app_strings.dart';
@@ -43,7 +43,7 @@ class _ClientOverviewScreenState extends State<ClientOverviewScreen> {
       case ClientOverviewTab.clientInfo:
         return ClientInfoScreen(onTileTap: _onTap);
       case ClientOverviewTab.progress:
-        return const ClientProgressScreen();
+        return const ProgressAndAnalyticsScreen();
       case ClientOverviewTab.trainingBlock:
         return const TrainingBlockScreen();
     }
