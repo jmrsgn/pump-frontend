@@ -1,114 +1,359 @@
 import 'package:flutter/material.dart';
+import 'package:pump/core/constants/app/app_dimens.dart';
+import 'package:pump/core/presentation/theme/app_text_styles.dart';
+import 'package:pump/core/utils/date_time_utils.dart';
+import 'package:pump/core/utils/ui_utils.dart';
 
+import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 
 class ProgressAndAnalyticsScreen extends StatelessWidget {
   const ProgressAndAnalyticsScreen({super.key});
 
   final int totalWeeks = 12;
-  final double rowHeight = 50; // Fixed height for all rows
-
-  List<String> get weekdays => [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  final int totalDaysAWeek = 7;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        children: [
-          // Fixed header
-          Container(
-            color: AppColors.primary,
-            child: Row(
-              children: const [
-                _cell("WEEK", bold: true, width: 120),
-                _cell("DATE", bold: true, width: 180),
-                _cell("WEIGHT (lbs)", bold: true, width: 120),
-                _cell("WEEKLY AVG", bold: true, width: 120),
-                _cell("WEEKLY RATE", bold: true, width: 120),
-                _cell("NOTE / ADJUSTMENT", bold: true, width: 180),
-              ].map((c) => SizedBox(height: 50, child: c)).toList(),
-            ),
-          ),
+    final weeks = DateTimeUtils.generateWeeks(
+      DateTime(2025, 10, 13),
+      totalWeeks,
+    );
 
-          // Scrollable table body
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(children: _buildAllWeekRows()),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            _buildHeaderRow(),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _buildAllDataColumns(context, weeks),
+                ),
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Header
+  Widget _buildHeaderRow() {
+    return Container(
+      color: AppColors.primary,
+      child: Row(
+        children: [
+          _tableCell(
+            text: AppStrings.week,
+            isHeader: true,
+            height: AppDimens.dimen40,
+          ),
+          _tableCell(
+            text: AppStrings.date,
+            isHeader: true,
+            width: AppDimens.dimen180,
+            height: AppDimens.dimen40,
+          ),
+          _tableCell(
+            text: AppStrings.weightInLbs,
+            isHeader: true,
+            height: AppDimens.dimen40,
+          ),
+          _tableCell(
+            text: AppStrings.weeklyAvg,
+            isHeader: true,
+            height: AppDimens.dimen40,
+          ),
+          _tableCell(
+            text: AppStrings.weeklyRate,
+            isHeader: true,
+            height: AppDimens.dimen40,
+          ),
+          _tableCell(
+            text: AppStrings.noteOrAdjustment,
+            isHeader: true,
+            width: AppDimens.dimen180,
+            height: AppDimens.dimen40,
           ),
         ],
       ),
     );
   }
 
-  List<Widget> _buildAllWeekRows() {
-    List<Widget> rows = [];
-
-    for (int week = 1; week <= totalWeeks; week++) {
-      rows.addAll(_buildWeekRows(week));
-    }
-
-    return rows;
+  List<Widget> _buildAllDataColumns(
+    BuildContext context,
+    List<List<DateTime>> weeks,
+  ) {
+    return [
+      _buildWeeksColumn(context),
+      _buildDatesColumn(weeks, AppDimens.dimen180),
+      _buildWeightsColumn(),
+      _buildWeeklyAverageWeightColumn(),
+      _buildWeeklyRateColumn(),
+      _buildNoteOrAdjustmentColumn(AppDimens.dimen180),
+    ];
   }
 
-  List<Widget> _buildWeekRows(int weekNumber) {
-    List<Widget> weekRows = [];
+  Widget _buildWeeksColumn(BuildContext context) {
+    return Column(
+      children: List.generate(totalWeeks, (index) {
+        return GestureDetector(
+          onTap: () => _showWeekDialog(context, index + 1),
+          child: _tableCell(
+            height: AppDimens.dimen50 * totalDaysAWeek,
+            widget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  (index + 1).toString(),
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                UiUtils.addVerticalSpaceS(),
+                Text(
+                  AppStrings.tapToViewCheckins,
+                  style: AppTextStyles.caption.copyWith(color: AppColors.info),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
 
-    for (int i = 0; i < 7; i++) {
-      final dayName = weekdays[i];
-      final isFirstRow = i == 0;
-
-      weekRows.add(
-        Row(
-          children: [
-            _cell(isFirstRow ? weekNumber.toString() : "", width: 120),
-            _cell("$dayName, October XX, 2025", width: 180),
-            _cell(i == 0 ? "###" : "", width: 120),
-            _cell(isFirstRow ? "###" : "", width: 120),
-            _cell(isFirstRow ? "###" : "", width: 120),
-            _cell("", width: 180),
-          ].map((c) => SizedBox(height: rowHeight, child: c)).toList(),
+  // TODO: add to AlertDialogUtils
+  void _showWeekDialog(BuildContext context, int weekNumber) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDimens.dimen20),
         ),
-      );
-    }
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(AppDimens.dimen20),
+          child: Container(
+            color: AppColors.surfaceLight,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Padding(
+              padding: const EdgeInsets.all(AppDimens.dimen14),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Title
+                  Text(
+                    'Week $weekNumber',
+                    style: AppTextStyles.heading3,
+                    textAlign: TextAlign.center,
+                  ),
+                  UiUtils.addVerticalSpaceL(),
 
-    return weekRows;
-  }
-}
+                  // Image
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(AppDimens.dimen15),
+                    child: Image.asset(
+                      'assets/images/before1.jpg',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: AppDimens.dimen500,
+                    ),
+                  ),
+                  UiUtils.addVerticalSpaceL(),
 
-class _cell extends StatelessWidget {
-  final String text;
-  final bool bold;
-  final double width;
-
-  const _cell(this.text, {this.bold = false, required this.width});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      alignment: Alignment.center,
-      // Center text vertically & horizontally
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade700),
+                  // Action buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Compare Button
+                      TextButton.icon(
+                        onPressed: () {
+                          // TODO: Add Compare action
+                        },
+                        icon: const Icon(
+                          Icons.compare,
+                          color: AppColors.primary,
+                        ),
+                        label: Text(
+                          AppStrings.compare,
+                          style: AppTextStyles.button.copyWith(
+                            fontSize: AppDimens.textSize14,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                      UiUtils.addHorizontalSpaceL(),
+                      // Close Button
+                      TextButton.icon(
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(Icons.close, color: AppColors.primary),
+                        label: Text(
+                          AppStrings.close,
+                          style: AppTextStyles.button.copyWith(
+                            fontSize: AppDimens.textSize14,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+    );
+  }
+
+  Widget _buildDatesColumn(List<List<DateTime>> weeks, double width) {
+    return Column(
+      children: List.generate(
+        weeks.length,
+        (weekIndex) => Column(
+          children: List.generate(
+            weeks[weekIndex].length,
+            (dayIndex) => _tableCell(
+              text: DateTimeUtils.formatFullDate(weeks[weekIndex][dayIndex]),
+              height: AppDimens.dimen50,
+              width: width,
+            ),
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildWeightsColumn() {
+    return Column(
+      children: List.generate(
+        totalWeeks,
+        (index) => Column(
+          children: List.generate(
+            totalDaysAWeek,
+            (dayIndex) => _editableCell(
+              inputType: TextInputType.number,
+              height: AppDimens.dimen50,
+              hint: AppStrings.kgOrLbs,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWeeklyAverageWeightColumn() {
+    return Column(
+      children: List.generate(
+        totalWeeks,
+        (index) => _tableCell(
+          text: AppStrings.noNumberInputTemplate,
+          height: AppDimens.dimen50 * totalDaysAWeek,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWeeklyRateColumn() {
+    return Column(
+      children: List.generate(
+        totalWeeks,
+        (index) => _tableCell(
+          text: AppStrings.noNumberInputTemplate,
+          height: AppDimens.dimen50 * totalDaysAWeek,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNoteOrAdjustmentColumn(double width) {
+    return Column(
+      children: List.generate(
+        totalWeeks,
+        (index) => Column(
+          children: List.generate(
+            totalDaysAWeek,
+            (dayIndex) => _editableCell(
+              inputType: TextInputType.text,
+              height: AppDimens.dimen50,
+              width: width,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _tableCell({
+    String? text,
+    bool isHeader = false,
+    double? height,
+    double? width,
+    Widget? widget,
+  }) {
+    return Container(
+      height: height ?? AppDimens.dimen50,
+      width: width ?? AppDimens.dimen120,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(AppDimens.dimen6),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey.shade700,
+          width: AppDimens.dimen0_7,
+        ),
+      ),
+      child:
+          widget ??
+          Text(
+            text!,
+            style: isHeader
+                ? AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold)
+                : AppTextStyles.caption.copyWith(color: AppColors.textPrimary),
+            textAlign: TextAlign.center,
+          ),
+    );
+  }
+
+  Widget _editableCell({
+    required TextInputType inputType,
+    String? hint,
+    double? height,
+    double? width,
+  }) {
+    return Container(
+      height: height ?? AppDimens.dimen50,
+      width: width ?? AppDimens.dimen120,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(AppDimens.dimen2),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey.shade700,
+          width: AppDimens.dimen0_7,
+        ),
+      ),
+      child: TextField(
+        cursorColor: AppColors.primary,
+        textAlign: TextAlign.center,
+        style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: AppTextStyles.bodySmall.copyWith(
+            color: AppColors.textHint,
+          ),
+          contentPadding: const EdgeInsets.all(AppDimens.dimen4),
+          border: InputBorder.none,
+          // Remove TextField's internal border
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+        ),
+        keyboardType: inputType,
       ),
     );
   }

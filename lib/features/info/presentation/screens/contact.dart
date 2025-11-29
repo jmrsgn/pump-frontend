@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/theme/app_button_styles.dart';
-import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/custom_scaffold.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
-import '../../../../core/utils/navigation_utils.dart';
 import '../../../../core/utils/ui_utils.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -28,16 +26,7 @@ class _ContactScreenState extends State<ContactScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: CustomScaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          title: Text(AppStrings.contact, style: AppTextStyles.appBarTitle),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-            onPressed: () {
-              NavigationUtils.handleBackNavigation(context);
-            },
-          ),
-        ),
+        appBarTitle: AppStrings.contact,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(AppDimens.spaceL),

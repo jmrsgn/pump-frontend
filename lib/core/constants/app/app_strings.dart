@@ -25,6 +25,8 @@ class AppStrings {
   static const reply = "Reply";
   static const typeAMessage = "Type a message";
   static const user = "User";
+  static const close = "Close";
+  static const compare = "Compare";
 
   // Login Page
   static const login = 'Login';
@@ -146,7 +148,18 @@ class AppStrings {
 
   static String injuriesTemplate(String injuries) => "Injuries: $injuries";
 
-  // Training Block
+  // Progress and Analytics Page
+  static const week = "Week";
+  static const date = "Date";
+  static const weightInLbs = "Weight (lbs)";
+  static const weeklyAvg = "Weekly Avg";
+  static const weeklyRate = "Weekly Rate";
+  static const noteOrAdjustment = "Note / Adjustment";
+  static const kgOrLbs = "kg / lbs";
+  static const noNumberInputTemplate = "###";
+  static const tapToViewCheckins = "Tap to view checkins";
+
+  // Training Block Page
   static const pull = "Pull";
   static const legs = "Legs";
   static const push = "Push";

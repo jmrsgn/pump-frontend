@@ -175,7 +175,7 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
 
   Widget tableCell(String text) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(AppDimens.dimen4),
       child: Text(
         text,
         style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary),
@@ -185,8 +185,9 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
 
   Widget editableCell(TextEditingController controller, {String? hint}) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(AppDimens.dimen2),
       child: TextField(
+        cursorColor: AppColors.primary,
         controller: controller,
         textAlign: TextAlign.center,
         style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary),
@@ -195,7 +196,7 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
           hintStyle: AppTextStyles.bodySmall.copyWith(
             color: AppColors.textHint,
           ),
-          contentPadding: const EdgeInsets.all(4),
+          contentPadding: const EdgeInsets.all(AppDimens.dimen4),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,

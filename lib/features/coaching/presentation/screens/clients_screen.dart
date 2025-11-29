@@ -20,17 +20,13 @@ class ClientsScreen extends StatelessWidget {
       'status': 'Active',
       'image': 'assets/images/jm.jpg',
     },
-    {'name': 'Hans Gracia', 'status': 'Inactive', 'image': ''},
     {'name': 'Romeo Jaranilla', 'status': 'Active', 'image': ''},
   ];
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: const Text('Clients'),
-      ),
+      appBarTitle: AppStrings.clients,
       body: Padding(
         padding: EdgeInsets.all(AppDimens.dimen12),
         child: Column(

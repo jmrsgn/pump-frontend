@@ -64,7 +64,7 @@ class ClientInfoScreen extends StatelessWidget {
                     _buildStatRow(AppStrings.height, '163 cm'),
                     _buildStatRow(AppStrings.weight, '64.35 kg'),
                     _buildStatRow(AppStrings.bodyFat, '20%'),
-                    _buildStatRow(AppStrings.muscleMass, '40 kg'),
+                    _buildStatRow(AppStrings.muscleMass, '30 kg'),
                   ],
                 ),
               ),

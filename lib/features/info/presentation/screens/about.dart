@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pump/core/utils/navigation_utils.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
 import '../../../../core/constants/app/app_dimens.dart';
@@ -14,15 +14,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-          onPressed: () {
-            NavigationUtils.handleBackNavigation(context);
-          },
-        ),
-      ),
+      appBarTitle: AppStrings.about,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(AppDimens.pagePadding),
@@ -30,16 +22,8 @@ class AboutScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    Text(AppStrings.aboutPage, style: AppTextStyles.heading1),
-                    UiUtils.addVerticalSpaceS(),
-                    Icon(Icons.info, size: 150), // TODO: replace with app logo
-                  ],
-                ),
-              ),
+              Icon(FontAwesomeIcons.question, size: 120),
+              UiUtils.addVerticalSpaceL(),
               Container(
                 alignment: Alignment.center,
                 child: Column(

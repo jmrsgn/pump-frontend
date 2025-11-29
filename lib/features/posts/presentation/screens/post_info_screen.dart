@@ -14,7 +14,6 @@ import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 import 'package:pump/features/posts/presentation/widgets/comment_widget.dart';
 
 import '../../../../core/presentation/widgets/app_text_input.dart';
-import '../../../../core/utils/navigation_utils.dart';
 
 class PostInfoScreen extends ConsumerStatefulWidget {
   final Post post;
@@ -76,15 +75,6 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
       child: CustomScaffold(
         isLoading: postInfoState.isLoading,
         backgroundColor: AppColors.surface,
-        appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-            onPressed: () {
-              NavigationUtils.handleBackNavigation(context);
-            },
-          ),
-        ),
         body: Column(
           children: [
             // Scrollable content

@@ -7,31 +7,16 @@ import '../../../../core/domain/entities/user.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/custom_scaffold.dart';
-import '../../../../core/utils/navigation_utils.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final User currentUser;
+
   const UserProfileScreen({super.key, required this.currentUser});
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text(AppStrings.profile, style: AppTextStyles.appBarTitle),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-          onPressed: () {
-            NavigationUtils.handleBackNavigation(context);
-          },
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.save, color: AppColors.textOnPrimary),
-          ),
-        ],
-      ),
+      appBarTitle: AppStrings.profile,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(AppDimens.pagePadding),
         child: Column(
