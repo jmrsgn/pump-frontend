@@ -110,7 +110,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   final email = _emailController.text.trim();
                                   final password = _passwordController.text
                                       .trim();
-                                  // No need to check authState here — ref.listen handles it
                                   loginViewModel.login(email, password);
                                 },
                           child: const Text(AppStrings.login),

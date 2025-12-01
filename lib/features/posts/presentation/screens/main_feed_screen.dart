@@ -7,6 +7,7 @@ import 'package:pump/core/utils/navigation_utils.dart';
 import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 import 'package:pump/features/posts/presentation/widgets/post_widget.dart';
 
+import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/app_drawer.dart';
@@ -23,12 +24,13 @@ class MainFeedScreen extends ConsumerStatefulWidget {
 class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
   Future<void> _onRefresh() async {
     await ref.read(mainFeedViewModelProvider.notifier).getAllPosts();
-    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override
   void initState() {
     super.initState();
+
+    // Initial load
     Future.microtask(() {
       ref.read(userViewModelProvider.notifier).initializeCurrentUser();
       ref.read(mainFeedViewModelProvider.notifier).getAllPosts();
@@ -39,10 +41,12 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
   Widget build(BuildContext context) {
     final logoutViewModel = ref.watch(logoutViewModelProvider.notifier);
     final userState = ref.watch(userViewModelProvider);
-    final mainFeedState = ref.watch(mainFeedViewModelProvider);
+    final feedState = ref.watch(mainFeedViewModelProvider);
+
+    final posts = feedState.posts;
 
     return CustomScaffold(
-      isLoading: userState.isLoading || mainFeedState.isLoading,
+      isLoading: userState.isLoading || feedState.isLoading,
       appBarLeadingIcon: Builder(
         builder: (context) => IconButton(
           icon: const Icon(Icons.menu),
@@ -50,30 +54,34 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
         ),
       ),
       backgroundColor: AppColors.background,
+
       drawer: userState.user == null
           ? const SizedBox.shrink()
           : AppDrawer(
               currentUser: userState.user!,
+              selectedRoute: AppRoutes.mainFeed,
               onSignOut: () async {
                 await logoutViewModel.logout();
                 if (context.mounted) {
                   NavigationUtils.replaceWith(context, AppRoutes.login);
                 }
               },
-              selectedRoute: AppRoutes.mainFeed,
             ),
+
       body: RefreshIndicator.noSpinner(
         onRefresh: _onRefresh,
-        child: mainFeedState.posts != null && mainFeedState.posts!.isNotEmpty
+        child: posts.isNotEmpty
             ? ListView.builder(
-                itemCount: mainFeedState.posts!.length,
+                padding: const EdgeInsets.only(bottom: AppDimens.dimen80),
+                itemCount: posts.length,
                 itemBuilder: (context, index) {
+                  final post = posts[index];
                   return PostWidget(
-                    post: mainFeedState.posts![index],
+                    post: post,
                     onTap: () => NavigationUtils.navigateTo(
                       context,
                       AppRoutes.postInfo,
-                      arguments: mainFeedState.posts![index],
+                      arguments: post,
                     ),
                   );
                 },
@@ -87,8 +95,11 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
                 ),
               ),
       ),
+
       floatingActionButton: userState.user != null
           ? FloatingActionButton(
+              backgroundColor: AppColors.primary,
+              child: const Icon(Icons.add),
               onPressed: () {
                 NavigationUtils.navigateTo(
                   context,
@@ -96,8 +107,6 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
                   arguments: userState.user,
                 );
               },
-              backgroundColor: AppColors.primary,
-              child: const Icon(Icons.add),
             )
           : null,
     );

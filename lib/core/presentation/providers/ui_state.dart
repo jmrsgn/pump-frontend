@@ -9,7 +9,7 @@ class UiState extends Equatable {
   UiState copyWith({bool? isLoading, String? errorMessage}) {
     return UiState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
     );
   }
 

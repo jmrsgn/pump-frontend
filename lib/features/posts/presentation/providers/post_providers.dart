@@ -62,5 +62,5 @@ final mainFeedViewModelProvider =
 
 final postInfoViewModelProvider =
     StateNotifierProvider<PostInfoViewModel, PostInfoState>((ref) {
-      return PostInfoViewModel(ref.watch(createCommentUseCaseProvider));
+      return PostInfoViewModel(ref, ref.watch(createCommentUseCaseProvider));
     });

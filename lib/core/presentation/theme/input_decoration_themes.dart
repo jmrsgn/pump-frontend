@@ -4,7 +4,7 @@ import '../../constants/app/app_dimens.dart';
 import 'app_colors.dart';
 import 'app_text_styles.dart';
 
-class AppInputDecorations {
+class InputDecorationThemes {
   static final InputDecorationTheme defaultTheme = InputDecorationTheme(
     hintStyle: AppTextStyles.inputLabel,
     prefixIconColor: AppColors.textHint,

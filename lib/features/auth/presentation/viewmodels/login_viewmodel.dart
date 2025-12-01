@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pump/core/utilities/logger_utility.dart';
+
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/providers/ui_state.dart';
 import '../../domain/usecases/login_usecase.dart';
@@ -22,6 +23,7 @@ class LoginViewModel extends StateNotifier<UiState> {
       return;
     }
 
+    // Call API
     try {
       final response = await _loginUseCase.execute(email, password);
       if (response.isSuccess) {

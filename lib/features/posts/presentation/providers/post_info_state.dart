@@ -3,16 +3,28 @@ import 'package:pump/core/presentation/providers/ui_state.dart';
 import '../../domain/entities/post.dart';
 
 class PostInfoState extends UiState {
-  final Comment? comment;
+  final List<Comment> comments;
+  final Comment? createdComment;
 
-  const PostInfoState({super.isLoading, super.errorMessage, this.comment});
+  const PostInfoState({
+    super.isLoading,
+    super.errorMessage,
+    required this.comments,
+    this.createdComment,
+  });
 
   @override
-  PostInfoState copyWith({bool? isLoading, String? errorMessage, Post? post}) {
+  PostInfoState copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    List<Comment>? comments,
+    Comment? createdComment,
+  }) {
     return PostInfoState(
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
-      comment: comment ?? comment,
+      comments: comments ?? this.comments,
+      createdComment: createdComment ?? this.createdComment,
     );
   }
 
@@ -20,7 +32,8 @@ class PostInfoState extends UiState {
     return const PostInfoState(
       isLoading: false,
       errorMessage: null,
-      comment: null,
+      comments: [],
+      createdComment: null,
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:pump/core/data/dto/api_error_response.dart';
 import 'package:pump/core/errors/app_error.dart';
 import 'package:pump/core/utilities/logger_utility.dart';

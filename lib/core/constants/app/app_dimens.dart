@@ -21,6 +21,7 @@ class AppDimens {
   static const double dimen48 = 48.0;
   static const double dimen50 = 50.0;
   static const double dimen64 = 64.0;
+  static const double dimen80 = 80.0;
   static const double dimen86 = 86.0;
   static const double dimen120 = 120.0;
   static const double dimen180 = 180.0;

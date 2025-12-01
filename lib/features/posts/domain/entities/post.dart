@@ -48,6 +48,36 @@ class Post {
     );
   }
 
+  Post copyWith({
+    String? id,
+    String? userId,
+    String? userName,
+    String? userProfileImageUrl,
+    String? title,
+    String? description,
+    int? likesCount,
+    int? commentsCount,
+    int? sharesCount,
+    List<Comment?>? comments,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Post(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      userName: userName ?? this.userName,
+      userProfileImageUrl: userProfileImageUrl ?? this.userProfileImageUrl,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      likesCount: likesCount ?? this.likesCount,
+      commentsCount: commentsCount ?? this.commentsCount,
+      sharesCount: sharesCount ?? this.sharesCount,
+      comments: comments ?? this.comments,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return 'Post{id: $id, title: $title, description: $description, userId: $userId, userName: $userName, userProfileImageUrl: $userProfileImageUrl, createdAt: $createdAt, updatedAt: $updatedAt, likesCount: $likesCount, commentsCount: $commentsCount, sharesCount: $sharesCount, comments: $comments}';

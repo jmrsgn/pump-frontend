@@ -40,4 +40,15 @@ class MainFeedViewmodel extends StateNotifier<MainFeedState> {
       emitError(AppStrings.anUnexpectedErrorOccurred);
     }
   }
+
+  void incrementCommentCount(String postId) {
+    final updatedPosts = state.posts.map((post) {
+      if (post.id == postId) {
+        return post.copyWith(commentsCount: post.commentsCount + 1);
+      }
+      return post;
+    }).toList();
+
+    state = state.copyWith(posts: updatedPosts);
+  }
 }

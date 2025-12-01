@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:pump/core/presentation/theme/app_bar_themes.dart';
 import 'package:pump/core/presentation/theme/app_colors.dart';
 
-import 'input_decoration_theme.dart';
+import 'input_decoration_themes.dart';
 
 class AppTheme {
   static ThemeData get defaultTheme {
     return ThemeData.dark().copyWith(
-      // Prevents AppBar color shift in dark mode
-      applyElevationOverlayColor: false,
-
-      // Default app theme
+      // Default App Theme
       brightness: Brightness.dark,
       primaryColor: Colors.black,
       scaffoldBackgroundColor: AppColors.background,
       dividerColor: AppColors.divider,
-      inputDecorationTheme: AppInputDecorations.defaultTheme,
+      // Prevents AppBar color shift in dark mode
+      applyElevationOverlayColor: false,
 
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+      // Input Decoration Theme
+      inputDecorationTheme: InputDecorationThemes.defaultTheme,
+
+      // App Bar Themes
+      appBarTheme: AppBarThemes.defaultTheme,
 
       // Bottom Navigation Bar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.bottomNav,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
+      ),
+
+      // Text Selection Theme
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColors.primary,
+        selectionColor: AppColors.primary.withValues(alpha: 0.3),
+        selectionHandleColor: AppColors.primary,
       ),
     );
   }
