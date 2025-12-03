@@ -73,7 +73,7 @@ class _TrainingBlockContentState extends State<TrainingBlockContent> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(AppDimens.screenPadding),
+          padding: const EdgeInsets.all(AppDimens.padding4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: widget.week.days.map(_buildDaySection).toList(),

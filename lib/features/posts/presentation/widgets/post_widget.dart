@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pump/core/constants/app/ui_constants.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
 
@@ -38,155 +39,155 @@ class _PostWidgetState extends ConsumerState<PostWidget>
   Widget build(BuildContext context) {
     final relativeTime = TimeUtils.timeAgo(widget.post.createdAt);
 
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Card(
-        color: AppColors.surface,
-        margin: EdgeInsets.only(bottom: AppDimens.spaceXS),
-        shape: RoundedRectangleBorder(),
-        child: Padding(
-          padding: const EdgeInsets.all(AppDimens.spaceS),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header user info
-              Container(
-                padding: const EdgeInsets.all(AppDimens.spaceXS),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    widget.post.userProfileImageUrl == null ||
-                            widget.post.userProfileImageUrl!.isEmpty
-                        ? CircleAvatar(
-                            backgroundColor: AppColors.primary,
-                            radius: AppDimens.radiusL,
-                            child: Text(
-                              widget.post.userName[0],
-                              style: AppTextStyles.body.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        : CircleAvatar(
-                            backgroundImage: AssetImage(
-                              widget.post.userProfileImageUrl!,
-                            ),
-                            radius: AppDimens.radiusL,
-                          ),
-
-                    UiUtils.addHorizontalSpaceM(),
-
-                    // Use Expanded to let name/status take flexible width
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.post.userName,
+    return Card(
+      color: AppColors.surface,
+      margin: EdgeInsets.only(bottom: AppDimens.margin4),
+      shape: RoundedRectangleBorder(),
+      child: Padding(
+        padding: const EdgeInsets.all(AppDimens.padding8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header user info
+            Container(
+              padding: const EdgeInsets.all(AppDimens.padding4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  widget.post.userProfileImageUrl == null ||
+                          widget.post.userProfileImageUrl!.isEmpty
+                      ? CircleAvatar(
+                          backgroundColor: AppColors.primary,
+                          radius: AppDimens.radius16,
+                          child: Text(
+                            widget.post.userName[0],
                             style: AppTextStyles.body.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          Text(
-                            relativeTime,
-                            style: AppTextStyles.caption.copyWith(
-                              color: AppColors.textDisabled,
-                            ),
+                        )
+                      : CircleAvatar(
+                          backgroundImage: AssetImage(
+                            widget.post.userProfileImageUrl!,
                           ),
-                        ],
-                      ),
+                          radius: AppDimens.radius16,
+                        ),
+
+                  UiUtils.addHorizontalSpaceM(),
+
+                  // Use Expanded to let name/status take flexible width
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.post.userName,
+                          style: AppTextStyles.body.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          relativeTime,
+                          style: AppTextStyles.caption.copyWith(
+                            color: AppColors.textDisabled,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-
-              UiUtils.addVerticalSpaceS(),
-
-              // Post info
-              Container(
-                padding: const EdgeInsets.all(AppDimens.spaceXS),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.post.title, style: AppTextStyles.heading3),
-                    UiUtils.addVerticalSpaceS(),
-                    Text(
-                      widget.post.description,
-                      style: AppTextStyles.body,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-
-              UiUtils.addVerticalSpaceS(),
-
-              // Post likes, comments and shares count
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.solidThumbsUp,
-                        color: AppColors.info,
-                        size: AppDimens.dimen12,
-                      ),
-                      UiUtils.addHorizontalSpaceS(),
-                      Text(
-                        widget.post.likesCount.toString(),
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textDisabled,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '${widget.post.commentsCount} ${AppStrings.comments}',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textDisabled,
-                        ),
-                      ),
-                      UiUtils.addHorizontalSpaceS(),
-                      Text(
-                        '${widget.post.sharesCount} ${AppStrings.shares}',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textDisabled,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
+            ),
 
-              UiUtils.addVerticalSpaceL(),
+            UiUtils.addVerticalSpaceS(),
 
-              // Action buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // Post info
+            Container(
+              padding: const EdgeInsets.all(AppDimens.padding4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.thumbsUp,
-                        color: AppColors.textDisabled,
-                        size: AppDimens.dimen16,
-                      ),
-                      UiUtils.addHorizontalSpaceS(),
-                      Text(
-                        AppStrings.like,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textDisabled,
-                        ),
-                      ),
-                    ],
+                  Text(widget.post.title, style: AppTextStyles.heading3),
+                  UiUtils.addVerticalSpaceS(),
+                  Text(
+                    widget.post.description,
+                    style: AppTextStyles.body,
+                    maxLines: UIConstants.maxLines3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Row(
+                ],
+              ),
+            ),
+
+            UiUtils.addVerticalSpaceS(),
+
+            // Post likes, comments and shares count
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.solidThumbsUp,
+                      color: AppColors.info,
+                      size: AppDimens.dimen12,
+                    ),
+                    UiUtils.addHorizontalSpaceS(),
+                    Text(
+                      widget.post.likesCount.toString(),
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textDisabled,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '${widget.post.commentsCount} ${AppStrings.comments}',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textDisabled,
+                      ),
+                    ),
+                    UiUtils.addHorizontalSpaceS(),
+                    Text(
+                      '${widget.post.sharesCount} ${AppStrings.shares}',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textDisabled,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            UiUtils.addVerticalSpaceL(),
+
+            // Action buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.thumbsUp,
+                      color: AppColors.textDisabled,
+                      size: AppDimens.dimen16,
+                    ),
+                    UiUtils.addHorizontalSpaceS(),
+                    Text(
+                      AppStrings.like,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textDisabled,
+                      ),
+                    ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: widget.onTap,
+                  child: Row(
                     children: [
                       Icon(
                         FontAwesomeIcons.comment,
@@ -202,26 +203,26 @@ class _PostWidgetState extends ConsumerState<PostWidget>
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.share,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.share,
+                      color: AppColors.textDisabled,
+                      size: AppDimens.dimen16,
+                    ),
+                    UiUtils.addHorizontalSpaceS(),
+                    Text(
+                      AppStrings.share,
+                      style: AppTextStyles.bodySmall.copyWith(
                         color: AppColors.textDisabled,
-                        size: AppDimens.dimen16,
                       ),
-                      UiUtils.addHorizontalSpaceS(),
-                      Text(
-                        AppStrings.share,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textDisabled,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

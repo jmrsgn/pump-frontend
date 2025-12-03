@@ -29,7 +29,7 @@ class _ContactScreenState extends State<ContactScreen> {
         appBarTitle: AppStrings.contact,
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(AppDimens.spaceL),
+            padding: const EdgeInsets.all(AppDimens.paddingScreen),
             child: Column(
               mainAxisSize: MainAxisSize
                   .min, // Takes only as much as available height needed
@@ -40,11 +40,13 @@ class _ContactScreenState extends State<ContactScreen> {
                   children: [
                     Text(
                       AppStrings.letsTalk,
-                      style: AppTextStyles.heading1.copyWith(fontSize: 42),
+                      style: AppTextStyles.heading1.copyWith(
+                        fontSize: AppDimens.textSize42,
+                      ),
                     ),
                     Text(
                       AppStrings.isThereAnytingICanHelpYouWith,
-                      style: AppTextStyles.bodySmall,
+                      style: AppTextStyles.body,
                     ),
                   ],
                 ),

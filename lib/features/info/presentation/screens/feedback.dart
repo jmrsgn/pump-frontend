@@ -26,7 +26,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         appBarTitle: AppStrings.feedback,
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(AppDimens.spaceL),
+            padding: const EdgeInsets.all(AppDimens.paddingScreen),
             child: Column(
               mainAxisSize: MainAxisSize
                   .min, // Takes only as much as available height needed

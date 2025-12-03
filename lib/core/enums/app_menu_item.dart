@@ -7,42 +7,42 @@ import '../routes.dart';
 enum AppMenuItem {
   coaching(
     title: AppStrings.coaching,
-    icon: Icon(FontAwesomeIcons.bolt),
+    icon: FontAwesomeIcons.bolt,
     route: AppRoutes.coaching,
   ),
   profile(
     title: AppStrings.profile,
-    icon: Icon(FontAwesomeIcons.user),
+    icon: FontAwesomeIcons.user,
     route: AppRoutes.userProfile,
   ),
   messages(
     title: AppStrings.messages,
-    icon: Icon(FontAwesomeIcons.message),
+    icon: FontAwesomeIcons.message,
     route: AppRoutes.messages,
   ),
   favorites(
     title: AppStrings.likedPosts,
-    icon: Icon(FontAwesomeIcons.thumbsUp),
+    icon: FontAwesomeIcons.thumbsUp,
     route: AppRoutes.likedPosts,
   ),
   contact(
     title: AppStrings.contact,
-    icon: Icon(FontAwesomeIcons.envelope),
+    icon: FontAwesomeIcons.envelope,
     route: AppRoutes.contact,
   ),
   feedback(
     title: AppStrings.feedback,
-    icon: Icon(FontAwesomeIcons.comments),
+    icon: FontAwesomeIcons.comments,
     route: AppRoutes.feedback,
   ),
   about(
     title: AppStrings.about,
-    icon: Icon(FontAwesomeIcons.circleQuestion),
+    icon: FontAwesomeIcons.circleQuestion,
     route: AppRoutes.about,
   );
 
   final String title;
-  final Widget icon;
+  final IconData icon;
   final String route;
 
   const AppMenuItem({

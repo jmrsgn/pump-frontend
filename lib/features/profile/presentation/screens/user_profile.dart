@@ -18,7 +18,7 @@ class UserProfileScreen extends StatelessWidget {
     return CustomScaffold(
       appBarTitle: AppStrings.profile,
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppDimens.pagePadding),
+        padding: EdgeInsets.all(AppDimens.paddingScreen),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,25 +28,29 @@ class UserProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   UiUtils.addVerticalSpaceS(),
-
                   currentUser.profileImageUrl == null
-                      ? const Icon(
-                          Icons.person,
-                          color: AppColors.textPrimary,
-                          size: AppDimens.dimen86,
+                      ? CircleAvatar(
+                          backgroundColor: AppColors.primary,
+                          radius: AppDimens.radius48,
+                          child: Text(
+                            currentUser.firstName[0],
+                            style: AppTextStyles.heading1.copyWith(
+                              fontSize: AppDimens.textSize48,
+                            ),
+                          ),
                         )
                       : CircleAvatar(
                           backgroundImage: AssetImage(
                             currentUser.profileImageUrl!,
                           ),
-                          radius: AppDimens.radiusXXXL,
+                          radius: AppDimens.radius48,
                         ),
 
                   UiUtils.addVerticalSpaceM(),
 
                   Text(
                     "${currentUser.firstName} ${currentUser.lastName}",
-                    style: AppTextStyles.heading1,
+                    style: AppTextStyles.heading2,
                   ),
                   Text(currentUser.email, style: AppTextStyles.bodySmall),
 
@@ -56,7 +60,11 @@ class UserProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.circle, color: AppColors.success, size: 8),
+                      Icon(
+                        Icons.circle,
+                        color: AppColors.success,
+                        size: AppDimens.dimen8,
+                      ),
                       UiUtils.addHorizontalSpaceXS(),
                       Text(AppStrings.active, style: AppTextStyles.bodySmall),
                     ],
@@ -101,7 +109,7 @@ class UserProfileScreen extends StatelessWidget {
   }) {
     return ListTile(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.radiusM),
+        borderRadius: BorderRadius.circular(AppDimens.radius8),
       ),
       tileColor: AppColors.surface,
       leading: leading,

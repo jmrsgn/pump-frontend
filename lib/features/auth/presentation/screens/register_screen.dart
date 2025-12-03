@@ -59,7 +59,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(AppDimens.pagePadding),
+                padding: EdgeInsets.all(AppDimens.paddingScreen),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -132,10 +132,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       ],
                     ),
                     UiUtils.addVerticalSpaceL(),
-                    UiUtils.addDivider(),
-                    UiUtils.addVerticalSpaceXXL(),
                     SizedBox(
-                      width: AppDimens.buttonMediumWidth,
+                      width: AppDimens.dimen180,
                       child: ElevatedButton(
                         style: AppButtonStyles.normal,
                         onPressed: uiState.isLoading
@@ -167,7 +165,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: const EdgeInsets.only(bottom: AppDimens.padding8),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: UiUtils.addCopyright(),

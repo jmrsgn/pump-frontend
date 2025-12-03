@@ -30,7 +30,7 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
   void initState() {
     super.initState();
 
-    // Initial load
+    // On initial load, get the current user and all posts from server
     Future.microtask(() {
       ref.read(userViewModelProvider.notifier).initializeCurrentUser();
       ref.read(mainFeedViewModelProvider.notifier).getAllPosts();
@@ -47,14 +47,11 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
 
     return CustomScaffold(
       isLoading: userState.isLoading || feedState.isLoading,
-      appBarLeadingIcon: Builder(
-        builder: (context) => IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () => Scaffold.of(context).openDrawer(),
-        ),
-      ),
+      appBarLeadingIcon: Icons.menu,
+      onAppBarLeadingIconPressed: (context) {
+        Scaffold.of(context).openDrawer();
+      },
       backgroundColor: AppColors.background,
-
       drawer: userState.user == null
           ? const SizedBox.shrink()
           : AppDrawer(
@@ -67,12 +64,11 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
                 }
               },
             ),
-
       body: RefreshIndicator.noSpinner(
         onRefresh: _onRefresh,
         child: posts.isNotEmpty
             ? ListView.builder(
-                padding: const EdgeInsets.only(bottom: AppDimens.dimen80),
+                padding: const EdgeInsets.only(bottom: AppDimens.padding80),
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
                   final post = posts[index];
@@ -95,7 +91,6 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
                 ),
               ),
       ),
-
       floatingActionButton: userState.user != null
           ? FloatingActionButton(
               backgroundColor: AppColors.primary,

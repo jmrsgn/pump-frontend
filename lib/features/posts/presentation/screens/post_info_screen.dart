@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/constants/app/app_dimens.dart';
+import 'package:pump/core/constants/app/ui_constants.dart';
 import 'package:pump/core/presentation/theme/app_colors.dart';
 import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
 import 'package:pump/core/utils/time_utils.dart';
@@ -34,22 +35,17 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
   void initState() {
     super.initState();
 
-    // Focus on the input and show keyboard after first frame
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    // FocusScope.of(context).requestFocus(_focusNode);
-
-    // // Scroll to bottom if needed
-    // _scrollToBottom();
-    // });
-
-    // Load initial comments
+    /*
+     * Remove all null comments from the post widget, then convert them to domain
+     * level and then convert into list to display. Otherwise, return an empty list
+     */
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final initialComments =
           widget.post.comments
-              ?.where((c) => c != null) // remove null items
-              .map((c) => c!) // convert Comment? → Comment
+              ?.where((c) => c != null)
+              .map((c) => c!)
               .toList() ??
-          []; // default empty list
+          [];
       ref
           .read(postInfoViewModelProvider.notifier)
           .loadInitialComments(initialComments);
@@ -84,7 +80,7 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
           if (_scrollController.hasClients) {
             _scrollController.animateTo(
               _scrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 350),
+              duration: Duration(milliseconds: UIConstants.milliseconds350),
               curve: Curves.easeOut,
             );
           }
@@ -99,9 +95,8 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
         backgroundColor: AppColors.surface,
         body: Column(
           children: [
-            // -------- FIXED NON-SCROLLING POST CONTENT --------
             Padding(
-              padding: const EdgeInsets.all(AppDimens.spaceS),
+              padding: const EdgeInsets.all(AppDimens.padding8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -116,12 +111,12 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
               ),
             ),
 
-            // -------- ONLY COMMENTS SCROLL --------
+            // Only comments section is scrollable
             Expanded(
               child: ListView.builder(
                 controller: _scrollController,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimens.spaceS,
+                  horizontal: AppDimens.padding8,
                 ),
                 itemCount: comments.length,
                 itemBuilder: (context, index) {
@@ -138,7 +133,7 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
               ),
             ),
 
-            // -------- FIXED INPUT AT BOTTOM --------
+            // Input is fixed at the bottom
             AppTextInput(
               controller: _commentController,
               focusNode: _focusNode,
@@ -147,6 +142,7 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                   _commentController.text.trim(),
                   widget.post.id,
                 );
+                // Clear input field
                 _commentController.clear();
               },
               onAttach: () {},
@@ -162,7 +158,7 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
       children: [
         CircleAvatar(
           backgroundColor: AppColors.primary,
-          radius: AppDimens.radiusL,
+          radius: AppDimens.radius16,
           child: Text(
             widget.post.userName[0],
             style: AppTextStyles.body.copyWith(fontWeight: FontWeight.bold),

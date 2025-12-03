@@ -22,10 +22,10 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMe = message.isMe;
     final radius = BorderRadius.only(
-      topLeft: const Radius.circular(AppDimens.radiusM),
-      topRight: const Radius.circular(AppDimens.radiusM),
-      bottomLeft: Radius.circular(isMe ? AppDimens.radiusM : 0),
-      bottomRight: Radius.circular(isMe ? 0 : AppDimens.radiusM),
+      topLeft: const Radius.circular(AppDimens.radius8),
+      topRight: const Radius.circular(AppDimens.radius8),
+      bottomLeft: Radius.circular(isMe ? AppDimens.radius8 : 0),
+      bottomRight: Radius.circular(isMe ? 0 : AppDimens.radius8),
     );
 
     return Row(

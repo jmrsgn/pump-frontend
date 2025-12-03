@@ -15,7 +15,7 @@ class ClientInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(AppDimens.screenPadding),
+        padding: const EdgeInsets.all(AppDimens.padding4),
         child: Column(
           children: [
             // Basic Info Card
@@ -23,7 +23,7 @@ class ClientInfoScreen extends StatelessWidget {
               color: AppColors.surfaceLight,
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: AppDimens.dimen36,
+                  radius: AppDimens.radius36,
                   backgroundImage: AssetImage("assets/images/jm.jpg"),
                 ),
                 title: Text(
@@ -50,7 +50,7 @@ class ClientInfoScreen extends StatelessWidget {
             Card(
               color: AppColors.surfaceLight,
               child: Padding(
-                padding: const EdgeInsets.all(AppDimens.dimen12),
+                padding: const EdgeInsets.all(AppDimens.padding12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

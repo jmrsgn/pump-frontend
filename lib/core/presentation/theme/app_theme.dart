@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pump/core/presentation/theme/app_bar_themes.dart';
 import 'package:pump/core/presentation/theme/app_colors.dart';
+import 'package:pump/core/presentation/theme/text_selection_themes.dart';
+import 'package:pump/core/presentation/theme/widgets/app_bar_themes.dart';
+import 'package:pump/core/presentation/theme/widgets/bottom_navigation_bar_themes.dart';
 
 import 'input_decoration_themes.dart';
 
@@ -18,22 +20,15 @@ class AppTheme {
       // Input Decoration Theme
       inputDecorationTheme: InputDecorationThemes.defaultTheme,
 
+      // Text Selection Theme
+      textSelectionTheme: TextSelectionThemes.defaultTheme,
+
+      // Widgets
       // App Bar Themes
       appBarTheme: AppBarThemes.defaultTheme,
 
       // Bottom Navigation Bar theme
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: AppColors.bottomNav,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textSecondary,
-      ),
-
-      // Text Selection Theme
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: AppColors.primary,
-        selectionColor: AppColors.primary.withValues(alpha: 0.3),
-        selectionHandleColor: AppColors.primary,
-      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemes.defaultTheme,
     );
   }
 }

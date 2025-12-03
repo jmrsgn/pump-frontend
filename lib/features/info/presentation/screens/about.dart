@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pump/core/constants/app/app_constants.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
 import '../../../../core/constants/app/app_dimens.dart';
@@ -17,17 +17,17 @@ class AboutScreen extends StatelessWidget {
       appBarTitle: AppStrings.about,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppDimens.pagePadding),
+          padding: EdgeInsets.all(AppDimens.paddingScreen),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(FontAwesomeIcons.question, size: 120),
-              UiUtils.addVerticalSpaceL(),
               Container(
                 alignment: Alignment.center,
                 child: Column(
                   children: [
+                    UiUtils.addVerticalSpaceS(),
+                    Text(AppConstants.appName, style: AppTextStyles.heading2),
                     UiUtils.addVerticalSpaceS(),
                     Text(
                       AppStrings.placeholderParagraph2,
@@ -78,14 +78,9 @@ class AboutScreen extends StatelessWidget {
                   children: [
                     Text(AppStrings.developer, style: AppTextStyles.heading1),
                     UiUtils.addVerticalSpaceM(),
-                    const CircleAvatar(
-                      radius: AppDimens.dimen64,
-                      backgroundColor: AppColors.primary,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: AppDimens.dimen86,
-                      ), // TODO fix color
+                    CircleAvatar(
+                      radius: AppDimens.radius48,
+                      backgroundImage: AssetImage("assets/images/jm.jpg"),
                     ),
                     UiUtils.addVerticalSpaceM(),
                     Text(
@@ -144,7 +139,7 @@ class AboutScreen extends StatelessWidget {
   }) {
     return ListTile(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.radiusM),
+        borderRadius: BorderRadius.circular(AppDimens.radius8),
       ),
       tileColor: AppColors.surface,
       leading: leading,
@@ -157,9 +152,9 @@ class AboutScreen extends StatelessWidget {
   Widget _addDividerWithVerticalSpace() {
     return Column(
       children: [
-        UiUtils.addVerticalSpaceXXL(),
+        UiUtils.addVerticalSpaceXL(),
         UiUtils.addDivider(),
-        UiUtils.addVerticalSpaceXXL(),
+        UiUtils.addVerticalSpaceXL(),
       ],
     );
   }

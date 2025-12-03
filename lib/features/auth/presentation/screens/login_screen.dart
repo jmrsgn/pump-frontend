@@ -69,7 +69,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Container(color: AppColors.overlay),
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(AppDimens.spaceL),
+                padding: const EdgeInsets.all(AppDimens.padding16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +101,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Align(
                       alignment: AlignmentGeometry.bottomRight,
                       child: SizedBox(
-                        width: AppDimens.buttonSmallWidth,
+                        width: AppDimens.dimen120,
                         child: ElevatedButton(
                           style: AppButtonStyles.normal,
                           onPressed: uiState.isLoading
@@ -123,7 +123,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: AppDimens.spaceXXL),
+                padding: EdgeInsets.only(bottom: AppDimens.padding32),
                 child: RichText(
                   text: TextSpan(
                     text: "${AppStrings.dontHaveAnAccount} ",

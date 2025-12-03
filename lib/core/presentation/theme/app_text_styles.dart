@@ -10,15 +10,15 @@ class AppTextStyles {
   static final appBarTitle = GoogleFonts.montserrat(
     fontSize: AppDimens.textSize20,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.2,
+    letterSpacing: AppDimens.textSpace0_2,
   );
 
   // Heading Texts
   static final heading1 = GoogleFonts.montserrat(
     fontSize: AppDimens.textSize28,
     fontWeight: FontWeight.bold,
-    height: 1.3,
-    letterSpacing: 0.2,
+    height: AppDimens.textHeight1_3,
+    letterSpacing: AppDimens.textSpace0_2,
   );
 
   static final heading2 = heading1.copyWith(
@@ -32,18 +32,18 @@ class AppTextStyles {
   static final body = GoogleFonts.inter(
     fontSize: AppDimens.textSize16,
     fontWeight: FontWeight.normal,
-    height: 1.5,
+    height: AppDimens.textHeight1_5,
   );
 
   static final bodyLarge = body.copyWith(
     fontSize: AppDimens.textSize18,
-    letterSpacing: 0.3,
+    letterSpacing: AppDimens.textSpace0_3,
   );
 
   static final bodySmall = body.copyWith(
     fontSize: AppDimens.textSize14,
     fontWeight: FontWeight.w400,
-    height: 1.4,
+    height: AppDimens.textHeight1_4,
   );
 
   // Caption / Metadata Texts
@@ -57,7 +57,7 @@ class AppTextStyles {
   static final button = GoogleFonts.montserrat(
     fontSize: AppDimens.textSize16,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.5,
+    letterSpacing: AppDimens.textSpace0_5,
   );
 
   // Input Fields Texts
@@ -84,6 +84,6 @@ class AppTextStyles {
     fontSize: AppDimens.textSize12,
     fontWeight: FontWeight.w300,
     color: AppColors.textHint,
-    letterSpacing: 0.2,
+    letterSpacing: AppDimens.textSpace0_2,
   );
 }

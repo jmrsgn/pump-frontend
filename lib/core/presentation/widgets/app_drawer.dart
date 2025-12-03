@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pump/core/constants/app/ui_constants.dart';
 import 'package:pump/core/enums/app_menu_item.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
@@ -29,9 +30,11 @@ class AppDrawer extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.10,
+              top:
+                  MediaQuery.of(context).size.height *
+                  UIConstants.percentage0_1,
             ),
-            padding: EdgeInsets.symmetric(horizontal: AppDimens.drawerPadding),
+            padding: EdgeInsets.symmetric(horizontal: AppDimens.padding16),
             child: Row(
               children: [
                 Expanded(
@@ -39,11 +42,11 @@ class AppDrawer extends StatelessWidget {
                   child: currentUser.profileImageUrl == null
                       ? CircleAvatar(
                           backgroundColor: AppColors.primary,
-                          radius: AppDimens.radiusXXXL,
+                          radius: AppDimens.radius48,
                           child: Text(
                             currentUser.firstName[0],
                             style: AppTextStyles.heading1.copyWith(
-                              fontSize: 48,
+                              fontSize: AppDimens.textSize48,
                             ),
                           ),
                         )
@@ -51,7 +54,7 @@ class AppDrawer extends StatelessWidget {
                           backgroundImage: AssetImage(
                             currentUser.profileImageUrl!,
                           ),
-                          radius: AppDimens.radiusXXXL,
+                          radius: AppDimens.radius48,
                         ),
                 ),
                 UiUtils.addHorizontalSpaceL(),
@@ -75,7 +78,7 @@ class AppDrawer extends StatelessWidget {
           ),
 
           UiUtils.addVerticalSpaceXL(),
-          const Divider(color: AppColors.divider),
+          UiUtils.addDivider(),
 
           // Expand to have the Sign out tab at the bottom
           Expanded(
@@ -92,7 +95,7 @@ class AppDrawer extends StatelessWidget {
                   ];
 
                   if (index == 0 || index == 3) {
-                    widgets.add(const Divider(color: AppColors.divider));
+                    widgets.add(UiUtils.addDivider());
                     widgets.add(
                       Align(
                         alignment: Alignment.centerLeft,
@@ -143,7 +146,11 @@ class AppDrawer extends StatelessWidget {
     final bool isSelected = selectedRoute == item.route;
 
     return ListTile(
-      leading: item.icon,
+      leading: Icon(
+        item.icon,
+        color: AppColors.textPrimary,
+        size: AppDimens.dimen20,
+      ),
       title: Text(
         item.title,
         style: TextStyle(

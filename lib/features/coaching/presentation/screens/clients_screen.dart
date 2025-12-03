@@ -5,6 +5,7 @@ import 'package:pump/core/presentation/theme/app_colors.dart';
 import 'package:pump/core/presentation/theme/app_text_styles.dart';
 import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
 import 'package:pump/core/utils/navigation_utils.dart';
+import 'package:pump/core/utils/ui_utils.dart';
 
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/routes.dart';
@@ -12,7 +13,8 @@ import '../../../../core/routes.dart';
 class ClientsScreen extends StatelessWidget {
   const ClientsScreen({super.key});
 
-  // TODO continue
+  // TODO: continue getting the users in db
+  // TODO: change colors of search field
 
   final List<Map<String, String>> clients = const [
     {
@@ -25,78 +27,82 @@ class ClientsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      appBarTitle: AppStrings.clients,
-      body: Padding(
-        padding: EdgeInsets.all(AppDimens.dimen12),
-        child: Column(
-          children: [
-            // Search bar
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppDimens.dimen12,
-                vertical: AppDimens.dimen4,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(AppDimens.radiusM),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search clients...',
-                  hintStyle: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: AppColors.textSecondary,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: CustomScaffold(
+        appBarTitle: AppStrings.clients,
+        body: Padding(
+          padding: EdgeInsets.all(AppDimens.paddingScreen),
+          child: Column(
+            children: [
+              // Search bar
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimens.padding12,
+                  vertical: AppDimens.padding4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(AppDimens.radius8),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: AppStrings.searchClients,
+                    hintStyle: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: AppDimens.dimen12),
 
-            // Client list
-            Expanded(
-              child: ListView.builder(
-                itemCount: clients.length,
-                itemBuilder: (context, index) {
-                  final client = clients[index];
-                  return _buildClientCard(
-                    context,
-                    name: client['name']!,
-                    status: client['status']!,
-                    imagePath: client['image']!,
-                  );
-                },
+              UiUtils.addVerticalSpaceM(),
+
+              // Client list
+              Expanded(
+                child: ListView.builder(
+                  itemCount: clients.length,
+                  itemBuilder: (context, index) {
+                    final client = clients[index];
+                    return _buildClientCard(
+                      context,
+                      name: client['name']!,
+                      status: client['status']!,
+                      profileImageUrl: client['image']!,
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: ElevatedButton.icon(
-        onPressed: () {},
-        icon: Icon(
-          Icons.add,
-          size: AppDimens.dimen16,
-          color: AppColors.textOnPrimary,
-        ),
-        label: Text(
-          AppStrings.enroll,
-          style: AppTextStyles.bodySmall.copyWith(
+        floatingActionButton: ElevatedButton.icon(
+          onPressed: () {},
+          icon: Icon(
+            Icons.add,
+            size: AppDimens.dimen20,
             color: AppColors.textOnPrimary,
-            fontWeight: FontWeight.bold,
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          padding: EdgeInsets.symmetric(
-            horizontal: AppDimens.dimen16,
-            vertical: AppDimens.dimen8,
+          label: Text(
+            AppStrings.enroll,
+            style: AppTextStyles.body.copyWith(
+              color: AppColors.textOnPrimary,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.radiusM),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            padding: EdgeInsets.symmetric(
+              horizontal: AppDimens.padding16,
+              vertical: AppDimens.padding8,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppDimens.radius8),
+            ),
           ),
         ),
       ),
@@ -107,85 +113,71 @@ class ClientsScreen extends StatelessWidget {
     BuildContext context, {
     required String name,
     required String status,
-    String imagePath = '',
+    String profileImageUrl = '',
   }) {
-    return Card(
-      color: AppColors.surface,
-      margin: EdgeInsets.only(bottom: AppDimens.dimen8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.radiusM),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.all(AppDimens.dimen12),
-        child: Row(
-          children: [
-            // Profile avatar with subtle shadow
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: CircleAvatar(
-                radius: AppDimens.radiusXL,
-                backgroundImage: imagePath.isNotEmpty
-                    ? AssetImage(imagePath)
-                    : null,
-                backgroundColor: imagePath.isEmpty
-                    ? AppColors.primary
-                    : Colors.transparent,
-              ),
-            ),
-            SizedBox(width: AppDimens.dimen12),
-
-            // Name & Status
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        NavigationUtils.navigateTo(context, AppRoutes.clientOverview);
+      },
+      child: Card(
+        color: AppColors.surface,
+        margin: EdgeInsets.only(bottom: AppDimens.margin8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDimens.radius8),
+        ),
+        elevation: AppDimens.elevation3,
+        child: Padding(
+          padding: EdgeInsets.all(AppDimens.padding12),
+          child: Row(
+            children: [
+              profileImageUrl == ''
+                  ? CircleAvatar(
+                      backgroundColor: AppColors.primary,
+                      radius: AppDimens.radius24,
+                      child: Text(name[0], style: AppTextStyles.heading2),
+                    )
+                  : CircleAvatar(
+                      backgroundImage: AssetImage(profileImageUrl),
+                      radius: AppDimens.radius24,
                     ),
-                  ),
-                  SizedBox(height: AppDimens.dimen4),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        color: status.toLowerCase() == 'active'
-                            ? AppColors.success
-                            : AppColors.error,
-                        size: AppDimens.dimen8,
-                      ),
-                      SizedBox(width: AppDimens.dimen4),
-                      Text(
-                        status,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+              UiUtils.addHorizontalSpaceM(),
 
-            // Navigate button
-            IconButton(
-              onPressed: () {
-                NavigationUtils.navigateTo(context, AppRoutes.clientOverview);
-              },
-              icon: Icon(FontAwesomeIcons.arrowRight, size: AppDimens.dimen16),
-            ),
-          ],
+              // Name & Status
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: AppTextStyles.bodyLarge.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    UiUtils.addVerticalSpaceXS(),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: status.toLowerCase() == 'active'
+                              ? AppColors.success
+                              : AppColors.error,
+                          size: AppDimens.dimen8,
+                        ),
+                        UiUtils.addHorizontalSpaceS(),
+                        Text(
+                          status,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Icon(FontAwesomeIcons.arrowRight, size: AppDimens.dimen16),
+            ],
+          ),
         ),
       ),
     );

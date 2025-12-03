@@ -9,13 +9,9 @@ class UiUtils {
   UiUtils._();
 
   static Widget addDivider() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(AppDimens.dimen4),
-      child: SizedBox(
-        height: AppDimens.dimen8,
-        width: AppDimens.dimen48,
-        child: Container(color: AppColors.primary),
-      ),
+    return Divider(
+      color: AppColors.divider,
+      thickness: AppDimens.dimen1,
     );
   }
 
@@ -34,52 +30,52 @@ class UiUtils {
 
   // Vertical Spaces
   static Widget addVerticalSpaceXS() {
-    return SizedBox(height: AppDimens.spaceXS);
+    return SizedBox(height: AppDimens.space4);
   }
 
   static Widget addVerticalSpaceS() {
-    return SizedBox(height: AppDimens.spaceS);
+    return SizedBox(height: AppDimens.space8);
   }
 
   static Widget addVerticalSpaceM() {
-    return SizedBox(height: AppDimens.spaceM);
+    return SizedBox(height: AppDimens.space12);
   }
 
   static Widget addVerticalSpaceL() {
-    return SizedBox(height: AppDimens.spaceL);
+    return SizedBox(height: AppDimens.space16);
   }
 
   static Widget addVerticalSpaceXL() {
-    return SizedBox(height: AppDimens.spaceXL);
+    return SizedBox(height: AppDimens.space24);
   }
 
   static Widget addVerticalSpaceXXL() {
-    return SizedBox(height: AppDimens.spaceXXL);
+    return SizedBox(height: AppDimens.space32);
   }
 
   // Horizontal Spaces
   static Widget addHorizontalSpaceXS() {
-    return SizedBox(width: AppDimens.spaceXS);
+    return SizedBox(width: AppDimens.space4);
   }
 
   static Widget addHorizontalSpaceS() {
-    return SizedBox(width: AppDimens.spaceS);
+    return SizedBox(width: AppDimens.space8);
   }
 
   static Widget addHorizontalSpaceM() {
-    return SizedBox(width: AppDimens.spaceM);
+    return SizedBox(width: AppDimens.space12);
   }
 
   static Widget addHorizontalSpaceL() {
-    return SizedBox(width: AppDimens.spaceL);
+    return SizedBox(width: AppDimens.space16);
   }
 
   static Widget addHorizontalSpaceXL() {
-    return SizedBox(width: AppDimens.spaceXL);
+    return SizedBox(width: AppDimens.space24);
   }
 
   static Widget addHorizontalSpaceXXL() {
-    return SizedBox(width: AppDimens.spaceXXL);
+    return SizedBox(width: AppDimens.space32);
   }
 
   // Snackbar
@@ -99,7 +95,7 @@ class UiUtils {
         action: action,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDimens.radiusS),
+          borderRadius: BorderRadius.circular(AppDimens.radius4),
         ),
       ),
     );

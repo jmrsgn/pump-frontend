@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pump/core/constants/app/ui_constants.dart';
 import 'package:pump/features/posts/presentation/providers/create_post_state.dart';
 import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 
@@ -68,7 +69,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Container(
-          padding: const EdgeInsets.all(AppDimens.pagePadding),
+          padding: const EdgeInsets.all(AppDimens.paddingScreen),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -78,7 +79,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                   widget.currentUser.profileImageUrl == null
                       ? CircleAvatar(
                           backgroundColor: AppColors.primary,
-                          radius: AppDimens.radiusL,
+                          radius: AppDimens.radius16,
                           child: Text(
                             widget.currentUser.firstName[0],
                             style: AppTextStyles.body.copyWith(
@@ -90,7 +91,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                           backgroundImage: AssetImage(
                             widget.currentUser.profileImageUrl!,
                           ),
-                          radius: AppDimens.radiusL,
+                          radius: AppDimens.radius16,
                         ),
                   UiUtils.addHorizontalSpaceS(),
                   Text(
@@ -107,13 +108,15 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
               // Title TextField
               TextField(
                 controller: titleController,
-                maxLines: 1,
+                maxLines: UIConstants.maxLines1,
                 decoration: InputDecoration(
                   hintText: AppStrings.whatsOnYourMind,
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: AppDimens.padding8,
+                  ),
                 ),
                 style: AppTextStyles.heading3,
               ),

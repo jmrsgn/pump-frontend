@@ -24,13 +24,13 @@ class ClientWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: AppColors.surface,
-      margin: EdgeInsets.only(bottom: AppDimens.spaceXS),
+      margin: EdgeInsets.only(bottom: AppDimens.margin4),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.radiusM),
+        borderRadius: BorderRadius.circular(AppDimens.radius8),
       ),
       elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.all(AppDimens.spaceL),
+        padding: const EdgeInsets.all(AppDimens.padding16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -41,7 +41,7 @@ class ClientWidget extends StatelessWidget {
                 border: Border.all(color: AppColors.primary, width: 2),
               ),
               child: CircleAvatar(
-                radius: AppDimens.radiusXL,
+                radius: AppDimens.radius24,
                 backgroundImage: imagePath.isNotEmpty
                     ? AssetImage(imagePath)
                     : null,

@@ -103,6 +103,7 @@ class AppStrings {
 
   // Clients Page
   static const enroll = "Enroll";
+  static const searchClients = "Search Clients";
 
   // Client Info Page
   static const clientInfo = "Client Info";

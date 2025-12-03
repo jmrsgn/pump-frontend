@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../constants/app/ui_constants.dart';
+
 class TimeUtils {
   TimeUtils._();
 
@@ -25,7 +27,7 @@ mixin RebuildEveryMinute<T extends StatefulWidget> on State<T> {
   late Timer _timer;
 
   void startMinuteRebuild() {
-    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
+    _timer = Timer.periodic(Duration(minutes: UIConstants.minute1), (_) {
       if (mounted) setState(() {});
     });
   }

@@ -12,13 +12,13 @@ class AppButtonStyles {
     foregroundColor: WidgetStateProperty.all(AppColors.textOnPrimary),
     padding: WidgetStateProperty.all(
       EdgeInsets.symmetric(
-        vertical: AppDimens.buttonVerticalPadding,
-        horizontal: AppDimens.buttonHorizontalPadding,
+        vertical: AppDimens.padding12,
+        horizontal: AppDimens.padding16,
       ),
     ),
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.buttonCornerRadius),
+        borderRadius: BorderRadius.circular(AppDimens.radius8),
       ),
     ),
     textStyle: WidgetStateProperty.all(AppTextStyles.button),
@@ -28,21 +28,19 @@ class AppButtonStyles {
     backgroundColor: WidgetStateProperty.all(Colors.transparent),
     foregroundColor: WidgetStateProperty.all(AppColors.primary),
     side: WidgetStateProperty.all(
-      BorderSide(
-        color: AppColors.primary,
-        width: AppDimens.buttonOutlineBorderWidth,
-      ),
+      BorderSide(color: AppColors.primary, width: AppDimens.dimen1_5),
     ),
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimens.buttonCornerRadius),
+        borderRadius: BorderRadius.circular(AppDimens.radius8),
       ),
     ),
     padding: WidgetStateProperty.all(
       const EdgeInsets.symmetric(
-        vertical: AppDimens.buttonVerticalPadding,
-        horizontal: AppDimens.buttonHorizontalPadding,
+        vertical: AppDimens.padding12,
+        horizontal: AppDimens.padding16,
       ),
     ),
+    textStyle: WidgetStateProperty.all(AppTextStyles.button),
   );
 }
