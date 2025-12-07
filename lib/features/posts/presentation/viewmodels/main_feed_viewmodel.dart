@@ -6,9 +6,9 @@ import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/utilities/logger_utility.dart';
 
 class MainFeedViewmodel extends StateNotifier<MainFeedState> {
-  final GetPostsUseCase _getAllPostsUseCase;
+  final GetPostsUseCase _getPostsUseCase;
 
-  MainFeedViewmodel(this._getAllPostsUseCase) : super(MainFeedState.initial());
+  MainFeedViewmodel(this._getPostsUseCase) : super(MainFeedState.initial());
 
   void emitError(String errorMessage) async {
     state = state.copyWith(isLoading: false, errorMessage: errorMessage);
@@ -19,7 +19,7 @@ class MainFeedViewmodel extends StateNotifier<MainFeedState> {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     try {
-      final response = await _getAllPostsUseCase.execute();
+      final response = await _getPostsUseCase.execute();
       if (response.isSuccess) {
         state = state.copyWith(
           isLoading: false,

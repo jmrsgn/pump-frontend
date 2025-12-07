@@ -11,6 +11,7 @@ class Post {
   final int commentsCount;
   final int sharesCount;
   final List<Comment?>? comments;
+  final bool isLikedByCurrentUser;
 
   const Post({
     required this.id,
@@ -25,6 +26,7 @@ class Post {
     required this.commentsCount,
     required this.sharesCount,
     required this.comments,
+    required this.isLikedByCurrentUser,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -45,6 +47,7 @@ class Post {
                 .map((commentJson) => Comment.fromJson(commentJson))
                 .toList()
           : null,
+      isLikedByCurrentUser: json['isLikedByCurrentUser'] ?? false,
     );
   }
 
@@ -61,6 +64,7 @@ class Post {
     List<Comment?>? comments,
     DateTime? createdAt,
     DateTime? updatedAt,
+    bool? isLikedByCurrentUser,
   }) {
     return Post(
       id: id ?? this.id,
@@ -75,12 +79,8 @@ class Post {
       comments: comments ?? this.comments,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      isLikedByCurrentUser: isLikedByCurrentUser ?? this.isLikedByCurrentUser,
     );
-  }
-
-  @override
-  String toString() {
-    return 'Post{id: $id, title: $title, description: $description, userId: $userId, userName: $userName, userProfileImageUrl: $userProfileImageUrl, createdAt: $createdAt, updatedAt: $updatedAt, likesCount: $likesCount, commentsCount: $commentsCount, sharesCount: $sharesCount, comments: $comments}';
   }
 }
 

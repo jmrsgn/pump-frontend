@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/constants/app/ui_constants.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
+import 'package:pump/features/posts/presentation/providers/post_providers.dart';
 
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
@@ -38,6 +39,7 @@ class _PostWidgetState extends ConsumerState<PostWidget>
   @override
   Widget build(BuildContext context) {
     final relativeTime = TimeUtils.timeAgo(widget.post.createdAt);
+    final postInfoViewModel = ref.watch(postInfoViewModelProvider.notifier);
 
     return Card(
       color: AppColors.surface,
@@ -103,21 +105,25 @@ class _PostWidgetState extends ConsumerState<PostWidget>
 
             UiUtils.addVerticalSpaceS(),
 
-            // Post info
-            Container(
-              padding: const EdgeInsets.all(AppDimens.padding4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.post.title, style: AppTextStyles.heading3),
-                  UiUtils.addVerticalSpaceS(),
-                  Text(
-                    widget.post.description,
-                    style: AppTextStyles.body,
-                    maxLines: UIConstants.maxLines3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: widget.onTap,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(AppDimens.padding4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.post.title, style: AppTextStyles.heading3),
+                    UiUtils.addVerticalSpaceS(),
+                    Text(
+                      widget.post.description,
+                      style: AppTextStyles.body,
+                      maxLines: UIConstants.maxLines3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -145,10 +151,13 @@ class _PostWidgetState extends ConsumerState<PostWidget>
                 ),
                 Row(
                   children: [
-                    Text(
-                      '${widget.post.commentsCount} ${AppStrings.comments}',
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textDisabled,
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        '${widget.post.commentsCount} ${AppStrings.comments}',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textDisabled,
+                        ),
                       ),
                     ),
                     UiUtils.addHorizontalSpaceS(),
@@ -171,16 +180,30 @@ class _PostWidgetState extends ConsumerState<PostWidget>
               children: [
                 Row(
                   children: [
-                    Icon(
-                      FontAwesomeIcons.thumbsUp,
-                      color: AppColors.textDisabled,
-                      size: AppDimens.dimen16,
-                    ),
-                    UiUtils.addHorizontalSpaceS(),
-                    Text(
-                      AppStrings.like,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textDisabled,
+                    InkWell(
+                      onTap: () {
+                        postInfoViewModel.likePost(widget.post.id);
+                      },
+                      borderRadius: BorderRadius.circular(AppDimens.radius4),
+                      child: Row(
+                        children: [
+                          Icon(
+                            widget.post.isLikedByCurrentUser
+                                ? FontAwesomeIcons.solidThumbsUp
+                                : FontAwesomeIcons.thumbsUp,
+                            size: AppDimens.dimen16,
+                            color: widget.post.isLikedByCurrentUser
+                                ? AppColors.info
+                                : AppColors.textDisabled,
+                          ),
+                          SizedBox(width: AppDimens.dimen4),
+                          Text(
+                            AppStrings.like,
+                            style: AppTextStyles.bodySmall.copyWith(
+                              color: AppColors.textDisabled,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

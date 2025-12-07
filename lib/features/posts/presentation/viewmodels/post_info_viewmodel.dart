@@ -40,6 +40,11 @@ class PostInfoViewModel extends StateNotifier<PostInfoState> {
     state = state.copyWith(comments: updated);
   }
 
+  void clearComments() {
+    state = state.copyWith(comments: []);
+  }
+
+  /// Create comment
   Future<void> createComment(String comment, String postId) async {
     // Reset state
     state = state.copyWith(isLoading: true, errorMessage: null);
@@ -104,6 +109,7 @@ class PostInfoViewModel extends StateNotifier<PostInfoState> {
     }
   }
 
+  /// Get comments
   Future<void> getComments(String postId) async {
     // Reset state
     state = state.copyWith(isLoading: true, errorMessage: null);
@@ -131,7 +137,7 @@ class PostInfoViewModel extends StateNotifier<PostInfoState> {
     }
   }
 
-  void clearComments() {
-    state = state.copyWith(comments: []);
+  Future<void> likePost(String postId) async {
+    // TODO:
   }
 }

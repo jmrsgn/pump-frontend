@@ -12,7 +12,8 @@ class PostResponse {
   final int likesCount;
   final int commentsCount;
   final int sharesCount;
-  final List<CommentResponse?>? comments;
+  final bool isLikedByCurrentUser;
+  final List<CommentResponse?> comments;
 
   const PostResponse({
     required this.id,
@@ -26,6 +27,7 @@ class PostResponse {
     required this.likesCount,
     required this.commentsCount,
     required this.sharesCount,
+    required this.isLikedByCurrentUser,
     required this.comments,
   });
 
@@ -42,11 +44,10 @@ class PostResponse {
       likesCount: json['likesCount'] ?? 0,
       commentsCount: json['commentsCount'] ?? 0,
       sharesCount: json['sharesCount'] ?? 0,
-      comments:
-          (json['comments'] as List<dynamic>?)
-              ?.map((c) => CommentResponse.fromJson(c))
-              .toList() ??
-          [],
+      isLikedByCurrentUser: json['isLikedByCurrentUser'] ?? false,
+      comments: (json['comments'] as List<dynamic>? ?? [])
+          .map((c) => CommentResponse.fromJson(c))
+          .toList(),
     );
   }
 
@@ -63,11 +64,12 @@ class PostResponse {
       'likesCount': likesCount,
       'commentsCount': commentsCount,
       'sharesCount': sharesCount,
-      'comments': comments?.map((c) => c?.toJson()).toList(),
+      'isLikedByCurrentUser': isLikedByCurrentUser,
+      'comments': comments.map((c) => c?.toJson()).toList(),
     };
   }
 
-  /// Converts the API model into your domain entity
+  /// Converts API model → Domain entity
   Post toPost() {
     return Post(
       id: id,
@@ -81,7 +83,8 @@ class PostResponse {
       likesCount: likesCount,
       commentsCount: commentsCount,
       sharesCount: sharesCount,
-      comments: comments?.map((c) => c?.toComment()).toList(),
+      comments: comments.map((c) => c?.toComment()).toList(),
+      isLikedByCurrentUser: isLikedByCurrentUser,
     );
   }
 }
@@ -132,7 +135,7 @@ class CommentResponse {
   Comment toComment() {
     return Comment(
       userName: userName,
-      userProfileImageUrl: userProfileImageUrl ?? "",
+      userProfileImageUrl: userProfileImageUrl,
       comment: comment,
       likesCount: likesCount,
       repliesCount: repliesCount,
