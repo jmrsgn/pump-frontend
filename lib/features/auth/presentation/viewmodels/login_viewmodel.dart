@@ -15,6 +15,11 @@ class LoginViewModel extends StateNotifier<UiState> {
   }
 
   Future<void> login(String email, String password) async {
+    LoggerUtility.d(
+      runtimeType.toString(),
+      'Execute method: [login] email: $email password: $password',
+    );
+
     // Reset state
     state = state.copyWith(isLoading: true, errorMessage: null);
 

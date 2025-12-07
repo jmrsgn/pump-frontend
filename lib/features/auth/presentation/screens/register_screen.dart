@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pump/core/presentation/widgets/custom_button.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/providers/ui_state.dart';
-import '../../../../core/presentation/theme/app_button_styles.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/custom_scaffold.dart';
@@ -134,8 +134,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     UiUtils.addVerticalSpaceL(),
                     SizedBox(
                       width: AppDimens.dimen180,
-                      child: ElevatedButton(
-                        style: AppButtonStyles.normal,
+                      child: CustomButton(
                         onPressed: uiState.isLoading
                             ? null
                             : () {
@@ -156,7 +155,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   password,
                                 );
                               },
-                        child: const Text(AppStrings.register),
+                        label: AppStrings.register,
                       ),
                     ),
                     UiUtils.addVerticalSpaceXXL(),

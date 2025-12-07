@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pump/core/presentation/widgets/custom_button.dart';
 
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
-import '../../../../core/presentation/theme/app_button_styles.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/custom_scaffold.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
@@ -52,10 +52,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    style: AppButtonStyles.normal,
+                  child: CustomButton(
                     onPressed: () {},
-                    child: const Text(AppStrings.submit),
+                    label: AppStrings.submit,
                   ),
                 ),
               ],

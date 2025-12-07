@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pump/core/constants/app/app_constants.dart';
+import 'package:pump/core/presentation/widgets/custom_button.dart';
 import 'package:pump/core/routes.dart';
 import 'package:pump/core/utils/navigation_utils.dart';
 import 'package:pump/core/utils/ui_utils.dart';
@@ -9,7 +10,6 @@ import 'package:pump/core/utils/ui_utils.dart';
 import '../../../../core/constants/app/app_dimens.dart';
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/presentation/providers/ui_state.dart';
-import '../../../../core/presentation/theme/app_button_styles.dart';
 import '../../../../core/presentation/theme/app_colors.dart';
 import '../../../../core/presentation/theme/app_text_styles.dart';
 import '../../../../core/presentation/widgets/custom_scaffold.dart';
@@ -102,8 +102,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       alignment: AlignmentGeometry.bottomRight,
                       child: SizedBox(
                         width: AppDimens.dimen120,
-                        child: ElevatedButton(
-                          style: AppButtonStyles.normal,
+                        child: CustomButton(
                           onPressed: uiState.isLoading
                               ? null
                               : () {
@@ -112,7 +111,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       .trim();
                                   loginViewModel.login(email, password);
                                 },
-                          child: const Text(AppStrings.login),
+
+                          label: AppStrings.login,
                         ),
                       ),
                     ),

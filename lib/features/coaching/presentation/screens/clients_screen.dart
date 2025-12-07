@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pump/core/constants/app/app_dimens.dart';
 import 'package:pump/core/presentation/theme/app_colors.dart';
 import 'package:pump/core/presentation/theme/app_text_styles.dart';
+import 'package:pump/core/presentation/widgets/custom_button.dart';
 import 'package:pump/core/presentation/widgets/custom_scaffold.dart';
+import 'package:pump/core/presentation/widgets/custom_text_field.dart';
 import 'package:pump/core/utils/navigation_utils.dart';
 import 'package:pump/core/utils/ui_utils.dart';
 
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/routes.dart';
 
-class ClientsScreen extends StatelessWidget {
+class ClientsScreen extends ConsumerStatefulWidget {
   const ClientsScreen({super.key});
 
-  // TODO: continue getting the users in db
-  // TODO: change colors of search field
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ClientsScreenState();
+}
+
+class _ClientsScreenState extends ConsumerState {
+  final _searchController = TextEditingController();
 
   final List<Map<String, String>> clients = const [
     {
@@ -41,22 +48,10 @@ class ClientsScreen extends StatelessWidget {
                   horizontal: AppDimens.padding12,
                   vertical: AppDimens.padding4,
                 ),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(AppDimens.radius8),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: AppStrings.searchClients,
-                    hintStyle: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
+                child: CustomTextField(
+                  prefixIcon: Icons.search,
+                  hint: AppStrings.searchClients,
+                  controller: _searchController,
                 ),
               ),
 
@@ -80,30 +75,10 @@ class ClientsScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: ElevatedButton.icon(
+        floatingActionButton: CustomButton(
+          prefixIcon: Icons.add,
           onPressed: () {},
-          icon: Icon(
-            Icons.add,
-            size: AppDimens.dimen20,
-            color: AppColors.textOnPrimary,
-          ),
-          label: Text(
-            AppStrings.enroll,
-            style: AppTextStyles.body.copyWith(
-              color: AppColors.textOnPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            padding: EdgeInsets.symmetric(
-              horizontal: AppDimens.padding16,
-              vertical: AppDimens.padding8,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppDimens.radius8),
-            ),
-          ),
+          label: AppStrings.enroll,
         ),
       ),
     );
