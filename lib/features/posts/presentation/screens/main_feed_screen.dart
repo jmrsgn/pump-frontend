@@ -23,7 +23,7 @@ class MainFeedScreen extends ConsumerStatefulWidget {
 
 class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
   Future<void> _onRefresh() async {
-    await ref.read(mainFeedViewModelProvider.notifier).getAllPosts();
+    await ref.read(mainFeedViewModelProvider.notifier).getPosts();
   }
 
   @override
@@ -33,7 +33,7 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
     // On initial load, get the current user and all posts from server
     Future.microtask(() {
       ref.read(userViewModelProvider.notifier).initializeCurrentUser();
-      ref.read(mainFeedViewModelProvider.notifier).getAllPosts();
+      ref.read(mainFeedViewModelProvider.notifier).getPosts();
     });
   }
 

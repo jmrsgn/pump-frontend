@@ -12,6 +12,45 @@ import '../../../../core/utilities/logger_utility.dart';
 import '../dto/post_response_dto.dart';
 
 class CommentService {
+  Future<Result<List<CommentResponse>, ApiErrorResponse>> getComments(
+    String token,
+    String postId,
+  ) async {
+    try {
+      final response = await http.get(
+        Uri.parse(ApiConstants.getCommentUrl(postId)),
+        headers: {...ApiConstants.headerType, 'Authorization': 'Bearer $token'},
+      );
+
+      final jsonBody = jsonDecode(response.body);
+
+      if (response.statusCode == HttpStatus.ok) {
+        List<CommentResponse> comments = (jsonBody['data'] as List)
+            .map((e) => CommentResponse.fromJson(e))
+            .toList();
+
+        return Result.success(comments);
+      } else {
+        final error = ApiErrorResponse.fromJson(jsonBody['error']);
+        return Result.failure(error);
+      }
+    } catch (e, stackTrace) {
+      LoggerUtility.e(
+        runtimeType.toString(),
+        AppStrings.anUnexpectedErrorOccurred,
+        e.toString(),
+        stackTrace,
+      );
+      return Result.failure(
+        ApiErrorResponse(
+          status: HttpStatus.internalServerError,
+          error: AppStrings.internalServerError,
+          message: AppStrings.anUnexpectedErrorOccurred,
+        ),
+      );
+    }
+  }
+
   Future<Result<CommentResponse, ApiErrorResponse>> createComment(
     String token,
     CreateCommentRequest request,
@@ -42,8 +81,8 @@ class CommentService {
       );
       final apiErrorResponse = ApiErrorResponse(
         status: HttpStatus.internalServerError,
-        error: AppStrings.anUnexpectedErrorOccurred,
-        message: '${AppStrings.anUnexpectedErrorOccurred}: $e',
+        error: AppStrings.internalServerError,
+        message: AppStrings.anUnexpectedErrorOccurred,
       );
       return Result.failure(apiErrorResponse);
     }

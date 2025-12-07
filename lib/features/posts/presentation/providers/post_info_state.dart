@@ -22,7 +22,7 @@ class PostInfoState extends UiState {
   }) {
     return PostInfoState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
       comments: comments ?? this.comments,
       createdComment: createdComment ?? this.createdComment,
     );

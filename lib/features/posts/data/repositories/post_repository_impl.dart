@@ -2,7 +2,6 @@ import 'package:pump/core/data/dto/result.dart';
 import 'package:pump/core/data/repositories/user_repository_impl.dart';
 import 'package:pump/core/domain/entities/authenticated_user.dart';
 import 'package:pump/core/errors/app_error.dart';
-import 'package:pump/core/utils/secure_storage.dart';
 import 'package:pump/features/posts/data/dto/create_post_request_dto.dart';
 import 'package:pump/features/posts/data/services/post_service.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
@@ -13,14 +12,9 @@ import '../../domain/repositories/post_repository.dart';
 
 class PostRepositoryImpl implements PostRepository {
   final PostService _postService;
-  final SecureStorage _secureStorage;
   final UserRepositoryImpl _userRepositoryImpl;
 
-  PostRepositoryImpl(
-    this._postService,
-    this._userRepositoryImpl, {
-    SecureStorage? secureStorage,
-  }) : _secureStorage = secureStorage ?? SecureStorage();
+  PostRepositoryImpl(this._postService, this._userRepositoryImpl);
 
   @override
   Future<Result<Post, AppError>> createPost(
@@ -80,13 +74,13 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<Result<List<Post>, AppError>> getAllPosts() async {
+  Future<Result<List<Post>, AppError>> getPosts() async {
     try {
       final Result<AuthenticatedUser, AppError> userResult =
           await _userRepositoryImpl.getAuthenticatedCurrentUser();
       if (userResult.isSuccess) {
         // Get all posts request
-        final result = await _postService.getAllPosts(userResult.data!.token);
+        final result = await _postService.getPosts(userResult.data!.token);
 
         if (result.isSuccess && result.data != null) {
           final posts = result.data!.map((e) => e.toPost()).toList();

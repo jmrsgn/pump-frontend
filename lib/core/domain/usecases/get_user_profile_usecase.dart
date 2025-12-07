@@ -1,8 +1,8 @@
 import 'package:pump/core/domain/entities/authenticated_user.dart';
 import 'package:pump/core/errors/app_error.dart';
 
-import '../../../../core/data/dto/result.dart';
-import '../../../../core/domain/repositories/user_repository.dart';
+import '../../data/dto/result.dart';
+import '../repositories/user_repository.dart';
 
 class GetUserProfileUseCase {
   final UserRepository _userRepository;

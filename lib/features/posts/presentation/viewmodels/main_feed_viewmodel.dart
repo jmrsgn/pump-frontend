@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pump/features/posts/domain/usecases/get_all_posts_usecase.dart';
+import 'package:pump/features/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:pump/features/posts/presentation/providers/main_feed_state.dart';
 
 import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/utilities/logger_utility.dart';
 
 class MainFeedViewmodel extends StateNotifier<MainFeedState> {
-  final GetAllPostsUseCase _getAllPostsUseCase;
+  final GetPostsUseCase _getAllPostsUseCase;
 
   MainFeedViewmodel(this._getAllPostsUseCase) : super(MainFeedState.initial());
 
@@ -14,7 +14,7 @@ class MainFeedViewmodel extends StateNotifier<MainFeedState> {
     state = state.copyWith(isLoading: false, errorMessage: errorMessage);
   }
 
-  Future<void> getAllPosts() async {
+  Future<void> getPosts() async {
     // Reset state
     state = state.copyWith(isLoading: true, errorMessage: null);
 

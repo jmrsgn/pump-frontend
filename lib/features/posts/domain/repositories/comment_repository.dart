@@ -8,4 +8,6 @@ abstract class CommentRepository {
     String comment,
     String postId,
   );
+
+  Future<Result<List<Comment>, AppError>> getComments(String postId);
 }

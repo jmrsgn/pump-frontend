@@ -4,7 +4,7 @@ import 'package:pump/features/posts/domain/entities/post.dart';
 import '../../../../core/data/dto/result.dart';
 
 abstract class PostRepository {
-  Future<Result<List<Post>, AppError>> getAllPosts();
+  Future<Result<List<Post>, AppError>> getPosts();
 
   Future<Result<Post, AppError>> createPost(String title, String description);
 }

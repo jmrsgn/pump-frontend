@@ -31,24 +31,17 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
   final ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
+  late final postInfoViewModel = ref.watch(postInfoViewModelProvider.notifier);
+  late final postInfoState = ref.watch(postInfoViewModelProvider);
+
   @override
   void initState() {
     super.initState();
 
-    /*
-     * Remove all null comments from the post widget, then convert them to domain
-     * level and then convert into list to display. Otherwise, return an empty list
-     */
+    // Get all comments from server on initial load of the screen
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final initialComments =
-          widget.post.comments
-              ?.where((c) => c != null)
-              .map((c) => c!)
-              .toList() ??
-          [];
-      ref
-          .read(postInfoViewModelProvider.notifier)
-          .loadInitialComments(initialComments);
+      ref.read(postInfoViewModelProvider.notifier).clearComments();
+      ref.read(postInfoViewModelProvider.notifier).getComments(widget.post.id);
     });
 
     startMinuteRebuild();

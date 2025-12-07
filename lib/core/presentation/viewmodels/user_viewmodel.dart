@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pump/core/presentation/providers/user_state.dart';
-import 'package:pump/features/profile/domain/usecases/get_user_profile_usecase.dart';
+import 'package:pump/core/domain/usecases/get_user_profile_usecase.dart';
 
 import '../../constants/app/app_strings.dart';
 

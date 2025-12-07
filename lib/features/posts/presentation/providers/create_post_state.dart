@@ -15,7 +15,7 @@ class CreatePostState extends UiState {
   }) {
     return CreatePostState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
       post: post ?? this.post,
     );
   }
