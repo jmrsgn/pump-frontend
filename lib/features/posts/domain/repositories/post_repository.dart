@@ -7,4 +7,6 @@ abstract class PostRepository {
   Future<Result<List<Post>, AppError>> getPosts();
 
   Future<Result<Post, AppError>> createPost(String title, String description);
+
+  Future<Result<Post, AppError>> likePost(String postId);
 }

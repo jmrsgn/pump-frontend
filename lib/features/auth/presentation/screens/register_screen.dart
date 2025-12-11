@@ -28,10 +28,27 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   bool isCoach = false;
 
   @override
   Widget build(BuildContext context) {
+    // States
+    final uiState = ref.watch(registerViewModelProvider);
+
+    // ViewModels
+    final registerViewModel = ref.read(registerViewModelProvider.notifier);
+
+    // Listeners
     ref.listen<UiState>(registerViewModelProvider, (previous, next) {
       if (previous?.isLoading == true && next.isLoading == false) {
         if (next.errorMessage == null) {
@@ -48,8 +65,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       }
     });
 
-    final uiState = ref.watch(registerViewModelProvider);
-    final registerViewModel = ref.read(registerViewModelProvider.notifier);
+    // -------------------------------------------------------------------------
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -64,11 +80,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     UiUtils.addVerticalSpaceS(),
+
                     Text(
                       AppStrings.userRegistration,
                       style: AppTextStyles.heading2,
                     ),
+
                     UiUtils.addVerticalSpaceXXL(),
+
                     Row(
                       children: [
                         Expanded(
@@ -86,23 +105,31 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         ),
                       ],
                     ),
+
                     UiUtils.addVerticalSpaceM(),
+
                     CustomTextField(
                       hint: AppStrings.email,
                       controller: _emailController,
                     ),
+
                     UiUtils.addVerticalSpaceM(),
+
                     CustomTextField(
                       hint: AppStrings.phone,
                       controller: _phoneController,
                     ),
+
                     UiUtils.addVerticalSpaceM(),
+
                     CustomTextField(
                       hint: AppStrings.password,
                       controller: _passwordController,
                       obscureText: true,
                     ),
+
                     UiUtils.addVerticalSpaceM(),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -123,7 +150,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             ],
                           ),
                         ),
+
                         UiUtils.addHorizontalSpaceXS(),
+
                         Switch(
                           activeThumbColor: AppColors.primary,
                           value: isCoach,
@@ -132,6 +161,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       ],
                     ),
                     UiUtils.addVerticalSpaceL(),
+
                     SizedBox(
                       width: AppDimens.dimen180,
                       child: CustomButton(
@@ -174,15 +204,5 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

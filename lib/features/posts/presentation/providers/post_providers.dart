@@ -5,6 +5,7 @@ import 'package:pump/features/posts/data/services/post_service.dart';
 import 'package:pump/features/posts/domain/usecases/create_post_usecase.dart';
 import 'package:pump/features/posts/domain/usecases/get_comments_usecase.dart';
 import 'package:pump/features/posts/domain/usecases/get_posts_usecase.dart';
+import 'package:pump/features/posts/domain/usecases/like_post_usecase.dart';
 import 'package:pump/features/posts/presentation/providers/create_post_state.dart';
 import 'package:pump/features/posts/presentation/providers/main_feed_state.dart';
 import 'package:pump/features/posts/presentation/providers/post_info_state.dart';
@@ -54,6 +55,10 @@ final getCommentsUseCaseProvider = Provider<GetCommentsUseCase>(
   (ref) => GetCommentsUseCase(ref.watch(commentRepositoryProvider)),
 );
 
+final likePostUseCaseProvider = Provider<LikePostUseCase>(
+  (ref) => LikePostUseCase(ref.watch(postRepositoryProvider)),
+);
+
 // ViewModels
 final createPostViewModelProvider =
     StateNotifierProvider<CreatePostViewModel, CreatePostState>((ref) {
@@ -62,7 +67,10 @@ final createPostViewModelProvider =
 
 final mainFeedViewModelProvider =
     StateNotifierProvider<MainFeedViewmodel, MainFeedState>((ref) {
-      return MainFeedViewmodel(ref.watch(getPostsUseCaseProvider));
+      return MainFeedViewmodel(
+        ref.watch(getPostsUseCaseProvider),
+        ref.watch(likePostUseCaseProvider),
+      );
     });
 
 final postInfoViewModelProvider =
@@ -72,5 +80,6 @@ final postInfoViewModelProvider =
         ref.watch(createCommentUseCaseProvider),
         ref.watch(getUserProfileUseCaseProvider),
         ref.watch(getCommentsUseCaseProvider),
+        ref.watch(likePostUseCaseProvider),
       );
     });

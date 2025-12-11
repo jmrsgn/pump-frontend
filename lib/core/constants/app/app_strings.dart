@@ -11,14 +11,10 @@ class AppStrings {
   static const name = "Name";
   static const message = "Message";
   static const submit = "Submit";
-  static const anUnexpectedErrorOccurred = "An unexpected error occurred";
-  static const tokenIsMissing = "Token is missing";
-  static const userIsNotAuthenticated = "User is not authenticated";
   static const unknownError = "Unknown error";
-  static const failedToFetchUserData = "Failed to fetch user data";
-  static const internalServerError = "Internal server error";
   static const routeError = "Route error";
   static const likes = "likes";
+  static const liked = "Liked";
   static const comments = "comments";
   static const shares = "shares";
   static const like = "Like";
@@ -27,6 +23,8 @@ class AppStrings {
   static const user = "User";
   static const close = "Close";
   static const compare = "Compare";
+  static const somethingWentWrongPleaseTryAgain =
+      "Something went wrong. Please try again.";
 
   // Login Page
   static const login = 'Login';
@@ -35,6 +33,9 @@ class AppStrings {
   static const invalidCredentials = "Invalid credentials";
   static const successfullyLoggedIn = "Successfully logged in";
   static const emailAndPasswordAreRequired = "Email and password are required";
+  static const enterAValidEmail = "Enter a valid email";
+  static const passwordMustBeAtLeast6Characters =
+      "Password must be at least 6 characters";
 
   // Register Page
   static const register = 'Register';
@@ -48,6 +49,7 @@ class AppStrings {
   static const allFieldsAreRequired = "All fields are required";
   static const userRegisteredSuccessfully = "User registered successfully";
   static const phPhonePrefix = "+63";
+  static const userRegistrationFailed = "User registration failed";
 
   // Main Feed Page
   static const comment = "Comment";
@@ -57,8 +59,6 @@ class AppStrings {
   // Create Post Page
   static const createPost = "Create Post";
   static const whatsOnYourMind = "What's on your mind?";
-  static const titleAndDescriptionAreRequired =
-      "Title and description are required";
   static const successfullyCreatedPost = "Successfully created post";
 
   // About Page

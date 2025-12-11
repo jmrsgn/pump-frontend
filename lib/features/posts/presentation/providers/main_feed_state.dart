@@ -4,11 +4,13 @@ import '../../domain/entities/post.dart';
 
 class MainFeedState extends UiState {
   final List<Post> posts;
+  final Post post;
 
   const MainFeedState({
-    super.isLoading,
+    required super.isLoading,
     super.errorMessage,
     required this.posts,
+    required this.post,
   });
 
   @override
@@ -16,15 +18,22 @@ class MainFeedState extends UiState {
     bool? isLoading,
     String? errorMessage,
     List<Post>? posts,
+    Post? post,
   }) {
     return MainFeedState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
       posts: posts ?? this.posts,
+      post: post ?? this.post,
     );
   }
 
   factory MainFeedState.initial() {
-    return const MainFeedState(isLoading: false, errorMessage: null, posts: []);
+    return MainFeedState(
+      isLoading: false,
+      errorMessage: null,
+      posts: const [],
+      post: Post.empty(),
+    );
   }
 }

@@ -44,7 +44,7 @@ class PostResponse {
       likesCount: json['likesCount'] ?? 0,
       commentsCount: json['commentsCount'] ?? 0,
       sharesCount: json['sharesCount'] ?? 0,
-      isLikedByCurrentUser: json['isLikedByCurrentUser'] ?? false,
+      isLikedByCurrentUser: json['likedByCurrentUser'] ?? false,
       comments: (json['comments'] as List<dynamic>? ?? [])
           .map((c) => CommentResponse.fromJson(c))
           .toList(),

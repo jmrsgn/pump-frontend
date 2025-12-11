@@ -5,7 +5,11 @@ import '../../domain/entities/post.dart';
 class CreatePostState extends UiState {
   final Post? post;
 
-  const CreatePostState({super.isLoading, super.errorMessage, this.post});
+  const CreatePostState({
+    required super.isLoading,
+    super.errorMessage,
+    this.post,
+  });
 
   @override
   CreatePostState copyWith({

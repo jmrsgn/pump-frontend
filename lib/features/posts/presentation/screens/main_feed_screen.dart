@@ -22,15 +22,10 @@ class MainFeedScreen extends ConsumerStatefulWidget {
 }
 
 class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
-  Future<void> _onRefresh() async {
-    await ref.read(mainFeedViewModelProvider.notifier).getPosts();
-  }
-
   @override
   void initState() {
     super.initState();
 
-    // On initial load, get the current user and all posts from server
     Future.microtask(() {
       ref.read(userViewModelProvider.notifier).initializeCurrentUser();
       ref.read(mainFeedViewModelProvider.notifier).getPosts();
@@ -39,19 +34,26 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final logoutViewModel = ref.watch(logoutViewModelProvider.notifier);
+    // States
     final userState = ref.watch(userViewModelProvider);
-    final feedState = ref.watch(mainFeedViewModelProvider);
+    final mainFeedState = ref.watch(mainFeedViewModelProvider);
 
-    final posts = feedState.posts;
+    // ViewModels
+    final logoutViewModel = ref.read(logoutViewModelProvider.notifier);
+    final mainFeedViewModel = ref.read(mainFeedViewModelProvider.notifier);
+
+    final posts = mainFeedState.posts;
+
+    // -------------------------------------------------------------------------
 
     return CustomScaffold(
-      isLoading: userState.isLoading || feedState.isLoading,
+      isLoading: userState.isLoading || mainFeedState.isLoading,
       appBarLeadingIcon: Icons.menu,
       onAppBarLeadingIconPressed: (context) {
         Scaffold.of(context).openDrawer();
       },
       backgroundColor: AppColors.background,
+
       drawer: userState.user == null
           ? const SizedBox.shrink()
           : AppDrawer(
@@ -64,33 +66,41 @@ class _MainFeedScreenState extends ConsumerState<MainFeedScreen> {
                 }
               },
             ),
+
       body: RefreshIndicator.noSpinner(
-        onRefresh: _onRefresh,
-        child: posts.isNotEmpty
-            ? ListView.builder(
-                padding: const EdgeInsets.only(bottom: AppDimens.padding80),
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  final post = posts[index];
-                  return PostWidget(
-                    post: post,
-                    onTap: () => NavigationUtils.navigateTo(
-                      context,
-                      AppRoutes.postInfo,
-                      arguments: post,
-                    ),
-                  );
-                },
-              )
-            : Center(
+        onRefresh: () async {
+          await mainFeedViewModel.getPosts();
+        },
+        child: posts.isEmpty
+            ? Center(
                 child: Text(
                   AppStrings.noPostsAvailable,
                   style: AppTextStyles.body.copyWith(
                     color: AppColors.textDisabled,
                   ),
                 ),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.only(bottom: AppDimens.padding80),
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  final post = posts[index];
+
+                  return PostWidget(
+                    post: post,
+                    onLikeTap: () => mainFeedViewModel.likePost(post.id),
+                    onTap: () {
+                      NavigationUtils.navigateTo(
+                        context,
+                        AppRoutes.postInfo,
+                        arguments: post,
+                      );
+                    },
+                  );
+                },
               ),
       ),
+
       floatingActionButton: userState.user != null
           ? FloatingActionButton(
               backgroundColor: AppColors.primary,

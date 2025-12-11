@@ -1,45 +1,45 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pump/core/constants/app/app_error_strings.dart';
+import 'package:pump/core/domain/helpers/async_helper.dart';
+import 'package:pump/core/presentation/viewmodels/base_viewmodel.dart';
 import 'package:pump/features/posts/domain/usecases/create_post_usecase.dart';
 import 'package:pump/features/posts/presentation/providers/create_post_state.dart';
 
-import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/utilities/logger_utility.dart';
 
-class CreatePostViewModel extends StateNotifier<CreatePostState> {
+class CreatePostViewModel extends BaseViewmodel<CreatePostState> {
   final CreatePostUseCase _createPostUseCase;
 
   CreatePostViewModel(this._createPostUseCase)
     : super(CreatePostState.initial());
 
-  void emitError(String errorMessage) async {
-    state = state.copyWith(isLoading: false, errorMessage: errorMessage);
+  @override
+  CreatePostState copyWithState({bool? isLoading, String? errorMessage}) {
+    return state.copyWith(isLoading: isLoading, errorMessage: errorMessage);
   }
 
+  // createPost ----------------------------------------------------------------
   Future<void> createPost(String title, String description) async {
-    // Reset state
-    state = state.copyWith(isLoading: true, errorMessage: null);
+    LoggerUtility.d(
+      runtimeType.toString(),
+      "Execute method: [createPost] title: [$title] description: [$description]",
+    );
 
-    if (title.trim().isEmpty || description.trim().isEmpty) {
-      emitError(AppStrings.titleAndDescriptionAreRequired);
-      return;
+    if (description.trim().isEmpty) {
+      return emitError(AppErrorStrings.postDescriptionAreRequired);
     }
 
-    try {
-      final response = await _createPostUseCase.execute(title, description);
-      if (response.isSuccess) {
-        state = state.copyWith(isLoading: false, errorMessage: null);
-      } else {
-        LoggerUtility.d(runtimeType.toString(), response.error);
-        emitError(response.error!.message);
-      }
-    } catch (e, stackTrace) {
-      LoggerUtility.e(
-        runtimeType.toString(),
-        AppStrings.anUnexpectedErrorOccurred,
-        e.toString(),
-        stackTrace,
-      );
-      emitError(AppStrings.anUnexpectedErrorOccurred);
-    }
+    await AsyncHelper.runUI(
+      () async {
+        final response = await _createPostUseCase.execute(title, description);
+        if (response.isSuccess) {
+          state = state.copyWith(isLoading: false, errorMessage: null);
+        } else {
+          LoggerUtility.d(runtimeType.toString(), response.error);
+          emitError(response.error!.message);
+        }
+      },
+      onError: emitError,
+      tag: "${runtimeType.toString()}.createPost",
+    );
   }
 }

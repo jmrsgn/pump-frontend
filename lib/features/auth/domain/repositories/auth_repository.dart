@@ -10,7 +10,5 @@ abstract class AuthRepository {
 
   Future<Result<AuthResponse, AppError>> register(RegisterRequest request);
 
-  Future<String?> getSavedToken();
-
   Future<void> logout();
 }

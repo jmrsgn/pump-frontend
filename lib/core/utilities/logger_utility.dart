@@ -8,10 +8,9 @@ class LoggerUtility {
     printer: PrettyPrinter(
       methodCount: 1, // Number of method calls to show
       errorMethodCount: 5, // Stacktrace lines for errors
-      lineLength: 120, // Width of log lines
+      lineLength: 200, // Width of log lines
       colors: true, // Colored output
       printEmojis: true, // Emojis for log levels
-      printTime: true, // Include timestamps
     ),
     filter: _LogFilter(), // Disable logs in release mode
   );

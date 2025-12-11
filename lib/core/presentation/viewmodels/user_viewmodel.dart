@@ -1,30 +1,47 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pump/core/presentation/providers/user_state.dart';
+import 'package:pump/core/domain/helpers/async_helper.dart';
 import 'package:pump/core/domain/usecases/get_user_profile_usecase.dart';
+import 'package:pump/core/presentation/providers/user_state.dart';
+import 'package:pump/core/presentation/viewmodels/base_viewmodel.dart';
+import 'package:pump/core/utilities/logger_utility.dart';
 
-import '../../constants/app/app_strings.dart';
-
-class UserViewModel extends StateNotifier<UserState> {
+class UserViewModel extends BaseViewmodel<UserState> {
   final GetUserProfileUseCase _getCurrentUserUseCase;
 
   UserViewModel(this._getCurrentUserUseCase) : super(UserState.initial());
 
+  @override
+  UserState copyWithState({bool? isLoading, String? errorMessage}) {
+    return state.copyWith(isLoading: isLoading, errorMessage: errorMessage);
+  }
+
+  // initializeCurrentUser -----------------------------------------------------
   Future<void> initializeCurrentUser() async {
-    state = state.copyWith(isLoading: true, errorMessage: null);
+    LoggerUtility.d(
+      runtimeType.toString(),
+      "Execute method: [initializeCurrentUser]",
+    );
 
-    final result = await _getCurrentUserUseCase.execute();
+    // Prevent double taps
+    if (state.isLoading) return;
 
-    if (result.isSuccess) {
-      state = state.copyWith(
-        isLoading: false,
-        user: result.data?.user,
-        errorMessage: null,
-      );
-    } else {
-      state = state.copyWith(
-        isLoading: false,
-        errorMessage: result.error?.message ?? AppStrings.failedToFetchUserData,
-      );
-    }
+    setLoading(true);
+
+    await AsyncHelper.runUI(
+      () async {
+        final result = await _getCurrentUserUseCase.execute();
+
+        if (result.isSuccess) {
+          state = state.copyWith(
+            isLoading: false,
+            user: result.data?.user,
+            errorMessage: null,
+          );
+        } else {
+          emitError(result.error!.message);
+        }
+      },
+      onError: emitError,
+      tag: "${runtimeType.toString()}.initializeCurrentUser",
+    );
   }
 }

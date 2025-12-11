@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:pump/core/constants/api/api_constants.dart';
-import 'package:pump/core/constants/app/app_strings.dart';
 import 'package:pump/core/data/dto/api_error_response.dart';
 import 'package:pump/core/data/dto/result.dart';
 
+import '../../../../core/constants/api/api_error_strings.dart';
 import '../../../../core/utilities/logger_utility.dart';
 import '../dto/create_post_request_dto.dart';
 import '../dto/post_response_dto.dart';
@@ -38,7 +38,7 @@ class PostService {
       return Result.failure(
         ApiErrorResponse(
           status: HttpStatus.internalServerError,
-          error: AppStrings.internalServerError,
+          error: ApiErrorStrings.internalServerError,
           message: e.toString(),
         ),
       );
@@ -72,14 +72,49 @@ class PostService {
     } catch (e, stackTrace) {
       LoggerUtility.e(
         runtimeType.toString(),
-        AppStrings.anUnexpectedErrorOccurred,
+        ApiErrorStrings.anUnexpectedErrorOccurred,
         e.toString(),
         stackTrace,
       );
       final apiErrorResponse = ApiErrorResponse(
         status: HttpStatus.internalServerError,
-        error: AppStrings.anUnexpectedErrorOccurred,
-        message: '${AppStrings.anUnexpectedErrorOccurred}: $e',
+        error: ApiErrorStrings.anUnexpectedErrorOccurred,
+        message: '${ApiErrorStrings.anUnexpectedErrorOccurred}: $e',
+      );
+      return Result.failure(apiErrorResponse);
+    }
+  }
+
+  Future<Result<PostResponse, ApiErrorResponse>> likePost(
+    String token,
+    String postId,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse(ApiConstants.getLikePostUrl(postId)),
+        headers: {...ApiConstants.headerType, 'Authorization': 'Bearer $token'},
+      );
+
+      final json = jsonDecode(response.body);
+
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.created) {
+        return Result.success(PostResponse.fromJson(json['data']));
+      } else {
+        final error = ApiErrorResponse.fromJson(json['error']);
+        return Result.failure(error);
+      }
+    } catch (e, stackTrace) {
+      LoggerUtility.e(
+        runtimeType.toString(),
+        ApiErrorStrings.anUnexpectedErrorOccurred,
+        e.toString(),
+        stackTrace,
+      );
+      final apiErrorResponse = ApiErrorResponse(
+        status: HttpStatus.internalServerError,
+        error: ApiErrorStrings.anUnexpectedErrorOccurred,
+        message: '${ApiErrorStrings.anUnexpectedErrorOccurred}: $e',
       );
       return Result.failure(apiErrorResponse);
     }

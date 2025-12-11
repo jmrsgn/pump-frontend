@@ -82,6 +82,29 @@ class Post {
       isLikedByCurrentUser: isLikedByCurrentUser ?? this.isLikedByCurrentUser,
     );
   }
+
+  factory Post.empty() {
+    return Post(
+      id: '',
+      title: '',
+      description: '',
+      userId: '',
+      userName: '',
+      userProfileImageUrl: null,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      likesCount: 0,
+      commentsCount: 0,
+      sharesCount: 0,
+      comments: const [],
+      isLikedByCurrentUser: false,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Post{id: $id, title: $title, description: $description, userId: $userId, userName: $userName, userProfileImageUrl: $userProfileImageUrl, createdAt: $createdAt, updatedAt: $updatedAt, likesCount: $likesCount, commentsCount: $commentsCount, sharesCount: $sharesCount, comments: $comments, isLikedByCurrentUser: $isLikedByCurrentUser}';
+  }
 }
 
 class Comment {
@@ -113,5 +136,10 @@ class Comment {
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
     );
+  }
+
+  @override
+  String toString() {
+    return 'Comment{userName: $userName, userProfileImageUrl: $userProfileImageUrl, comment: $comment, likesCount: $likesCount, repliesCount: $repliesCount, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
 }

@@ -17,6 +17,7 @@ class ApiConstants {
 
   // Post
   static const String postUrl = "$baseUrl/post";
+  static String getLikePostUrl(String postId) => "$postUrl/$postId/like";
 
   // Comment
   static String getCommentUrl(String postId) => "$postUrl/$postId/comment";

@@ -4,13 +4,13 @@ import 'package:pump/core/presentation/providers/ui_state.dart';
 class UserState extends UiState {
   final User? user;
 
-  const UserState({super.isLoading, super.errorMessage, this.user});
+  const UserState({required super.isLoading, super.errorMessage, this.user});
 
   @override
   UserState copyWith({bool? isLoading, String? errorMessage, User? user}) {
     return UserState(
       isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
       user: user ?? this.user,
     );
   }

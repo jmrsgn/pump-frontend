@@ -1,9 +1,8 @@
 class AppError {
-  final String error;
   final String message;
 
-  AppError({required this.error, required this.message});
+  AppError({required this.message});
 
   @override
-  String toString() => 'AppError(error: $error, message: $message)';
+  String toString() => 'AppError(message: $message)';
 }

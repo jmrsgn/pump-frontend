@@ -94,9 +94,9 @@ class _PostInfoScreenState extends ConsumerState<PostInfoScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(relativeTime),
-                  UiUtils.addVerticalSpaceS(),
+                  UiUtils.addVerticalSpaceM(),
                   _buildPostInfo(),
-                  UiUtils.addVerticalSpaceS(),
+                  UiUtils.addVerticalSpaceM(),
                   _buildActionButtons(),
                   UiUtils.addVerticalSpaceL(),
                   _buildLikesAndShares(),

@@ -36,6 +36,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // States
+    final uiState = ref.watch(loginViewModelProvider);
+
+    // ViewModels
+    final loginViewModel = ref.watch(loginViewModelProvider.notifier);
+
     // Listeners
     ref.listen<UiState>(loginViewModelProvider, (previous, next) {
       if (previous?.isLoading == true && next.isLoading == false) {
@@ -53,20 +59,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     });
 
-    final uiState = ref.watch(loginViewModelProvider);
-    final loginViewModel = ref.watch(loginViewModelProvider.notifier);
+    // -------------------------------------------------------------------------
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: CustomScaffold(
         showAppBar: false,
         isLoading: uiState.isLoading,
+
         body: Stack(
           fit: StackFit.expand,
           alignment: Alignment.center,
           children: [
             Image.asset('assets/images/home.png', fit: BoxFit.cover),
+
             Container(color: AppColors.overlay),
+
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(AppDimens.padding16),
@@ -80,7 +88,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         fontSize: AppDimens.textSize32,
                       ),
                     ),
+
                     UiUtils.addVerticalSpaceXL(),
+
                     Center(
                       child: Column(
                         children: [
@@ -97,7 +107,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ],
                       ),
                     ),
+
                     UiUtils.addVerticalSpaceM(),
+
                     Align(
                       alignment: AlignmentGeometry.bottomRight,
                       child: SizedBox(
@@ -120,6 +132,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
             ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

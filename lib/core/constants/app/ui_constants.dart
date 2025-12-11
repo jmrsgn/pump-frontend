@@ -16,4 +16,8 @@ class UIConstants {
   // Max Lines
   static final int maxLines1 = 1;
   static final int maxLines3 = 3;
+
+  // Other
+  static final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
+  static final int minimumPasswordLength = 6;
 }

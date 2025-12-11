@@ -15,8 +15,9 @@ import '../../../../core/utils/time_utils.dart';
 class PostWidget extends ConsumerStatefulWidget {
   final Post post;
   final VoidCallback? onTap;
+  final VoidCallback? onLikeTap;
 
-  const PostWidget({super.key, required this.post, this.onTap});
+  const PostWidget({super.key, required this.post, this.onTap, this.onLikeTap});
 
   @override
   ConsumerState<PostWidget> createState() => _PostWidgetState();
@@ -181,9 +182,7 @@ class _PostWidgetState extends ConsumerState<PostWidget>
                 Row(
                   children: [
                     InkWell(
-                      onTap: () {
-                        postInfoViewModel.likePost(widget.post.id);
-                      },
+                      onTap: widget.onLikeTap,
                       borderRadius: BorderRadius.circular(AppDimens.radius4),
                       child: Row(
                         children: [
@@ -196,11 +195,15 @@ class _PostWidgetState extends ConsumerState<PostWidget>
                                 ? AppColors.info
                                 : AppColors.textDisabled,
                           ),
-                          SizedBox(width: AppDimens.dimen4),
+                          UiUtils.addHorizontalSpaceS(),
                           Text(
-                            AppStrings.like,
+                            widget.post.isLikedByCurrentUser
+                                ? AppStrings.liked
+                                : AppStrings.like,
                             style: AppTextStyles.bodySmall.copyWith(
-                              color: AppColors.textDisabled,
+                              color: widget.post.isLikedByCurrentUser
+                                  ? AppColors.info
+                                  : AppColors.textDisabled,
                             ),
                           ),
                         ],

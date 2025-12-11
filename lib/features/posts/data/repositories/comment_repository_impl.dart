@@ -1,3 +1,4 @@
+import 'package:pump/core/constants/app/app_error_strings.dart';
 import 'package:pump/core/data/dto/result.dart';
 import 'package:pump/core/data/repositories/user_repository_impl.dart';
 import 'package:pump/core/domain/entities/authenticated_user.dart';
@@ -5,7 +6,6 @@ import 'package:pump/core/errors/app_error.dart';
 import 'package:pump/features/posts/data/dto/create_comment_request_dto.dart';
 import 'package:pump/features/posts/domain/entities/post.dart';
 
-import '../../../../core/constants/app/app_strings.dart';
 import '../../../../core/utilities/logger_utility.dart';
 import '../../domain/repositories/comment_repository.dart';
 import '../services/comment_service.dart';
@@ -51,24 +51,18 @@ class CommentRepositoryImpl implements CommentRepository {
           "User id is missing, will not proceed with API call",
         );
         return Result.failure(
-          AppError(
-            error: AppStrings.userIsNotAuthenticated,
-            message: AppStrings.userIsNotAuthenticated,
-          ),
+          AppError(message: AppErrorStrings.userIsNotAuthenticated),
         );
       }
     } catch (e, stackTrace) {
       LoggerUtility.e(
         runtimeType.toString(),
-        AppStrings.anUnexpectedErrorOccurred,
+        AppErrorStrings.anUnexpectedErrorOccurred,
         e.toString(),
         stackTrace,
       );
       return Result.failure(
-        AppError(
-          error: AppStrings.anUnexpectedErrorOccurred,
-          message: AppStrings.anUnexpectedErrorOccurred,
-        ),
+        AppError(message: AppErrorStrings.anUnexpectedErrorOccurred),
       );
     }
   }
@@ -99,24 +93,18 @@ class CommentRepositoryImpl implements CommentRepository {
           "User id is missing, will not proceed with API call",
         );
         return Result.failure(
-          AppError(
-            error: AppStrings.userIsNotAuthenticated,
-            message: AppStrings.userIsNotAuthenticated,
-          ),
+          AppError(message: AppErrorStrings.userIsNotAuthenticated),
         );
       }
     } catch (e, stackTrace) {
       LoggerUtility.e(
         runtimeType.toString(),
-        AppStrings.anUnexpectedErrorOccurred,
+        AppErrorStrings.anUnexpectedErrorOccurred,
         e.toString(),
         stackTrace,
       );
       return Result.failure(
-        AppError(
-          error: AppStrings.anUnexpectedErrorOccurred,
-          message: AppStrings.anUnexpectedErrorOccurred,
-        ),
+        AppError(message: AppErrorStrings.anUnexpectedErrorOccurred),
       );
     }
   }
