@@ -61,11 +61,11 @@ abstract class BaseService {
   }
 
   /// Helper to throw a consistent ServerException from backend error JSON
-  Never throwServerException(ApiErrorResponse error, int statusCode) {
+  Never throwServerException(ApiErrorResponse error) {
     throw ServerException(
       message: error.message ?? ApiErrorStrings.anUnexpectedErrorOccurred,
       error: error.error,
-      statusCode: statusCode,
+      statusCode: error.status,
     );
   }
 }

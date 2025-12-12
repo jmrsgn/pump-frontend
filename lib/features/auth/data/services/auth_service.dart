@@ -43,7 +43,7 @@ class AuthService extends BaseService {
         );
       }
 
-      throwServerException(json, error.status);
+      throwServerException(error);
     }, tag: "${runtimeType.toString()}.login");
   }
 
@@ -78,7 +78,7 @@ class AuthService extends BaseService {
         );
       }
 
-      throwServerException(json, error.status);
+      throwServerException(error);
     }, tag: "${runtimeType.toString()}.register");
   }
 }
